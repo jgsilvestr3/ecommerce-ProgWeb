@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+body {
+  background-color: #f4f5f7;
+  font-family: 'Poppins', -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ===== Navbar ===== */
+.navbar {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ===== Título da seção ===== */
+main h2 {
+  font-weight: 700;
+  color: #1f2937;
 }
 
-.App-link {
-  color: #61dafb;
+/* ===== Cards de produto ===== */
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-img-top {
+  background-color: #e9ecef;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.card-text.fw-bold {
+  color: #2563eb;
+  font-size: 1.15rem;
+}
+
+/* ===== Formulários ===== */
+.formulario,
+form .card {
+  border-radius: 12px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* ===== Rodapé ===== */
+footer {
+  letter-spacing: 0.5px;
 }
