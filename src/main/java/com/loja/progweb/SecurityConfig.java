@@ -1,3 +1,4 @@
+
 package com.loja.progweb;
 
 import org.springframework.context.annotation.Bean;
@@ -7,46 +8,63 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration 
+@Configuration
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
 
-        http //Caminhos públicos
+        http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/usuarios", "/login","/css/**", "/js/**",
-                                 "/images/**", "/novo/usuario", "/usuario/salvar", "/").permitAll()
 
-                // caminhos privados administrador
-                .requestMatchers("/usuarios", "/admin/**")
+                // Páginas e recursos públicos
+                .requestMatchers(
+                    "/",
+                    "/login",
+                    "/cadastro",
+                    "/cadastro/salvar",
+                    "/novo/usuario",
+                    "/usuario/salvar",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/imagem/**",
+                    "/error"
+                ).permitAll()
+
+                // Rotas exclusivas do administrador
+                .requestMatchers("/admin/**")
                     .hasRole("ADMINISTRADOR")
 
-                // caminho dos funcionários
-                .requestMatchers("/usuarios", "/funcionario/**")
+                // Rotas compartilhadas por administrador e funcionário
+                .requestMatchers("/funcionario/**")
                     .hasAnyRole("ADMINISTRADOR", "FUNCIONARIO")
 
+                // Rotas de clientes
                 .requestMatchers("/cliente/**")
                     .hasAnyRole("ADMINISTRADOR", "CLIENTE")
 
-                .requestMatchers("/", "/login", "/cadastro", "/cadastro/salvar",
-                    "/produtos", "/carrinho", "/imagem/**", "/teste/produtos",
-                    "/css/**", "/js/**", "/images/**", "/error").permitAll()
+                // Lista de usuários exclusiva do administrador
+                .requestMatchers("/usuarios")
+                    .hasRole("ADMINISTRADOR")
 
-                // demais páginas não exigem autenticação
+                // Outras rotas exigem autenticação
                 .anyRequest().authenticated()
             )
+
             .formLogin(form -> form
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/usuarios", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
             )
+
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
@@ -54,6 +72,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-    
-
 }

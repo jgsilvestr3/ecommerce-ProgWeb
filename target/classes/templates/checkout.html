@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Pagamento</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark" aria-label="Navegação principal">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Loja</a>
+            <div class="d-flex gap-2">
+                <a class="btn btn-outline-light btn-sm" th:href="@{/teste/produtos}">Produtos</a>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/meus-pedidos}">Meus pedidos</a>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/carrinho}">
+                    Carrinho <span class="badge text-bg-primary" id="contador-carrinho">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-4">
+    <h1 class="h3 mb-3">Pagamento</h1>
+
+    <div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}"></div>
+
+    <div id="checkout-vazio" class="alert alert-info d-none" role="status">
+        Seu carrinho está vazio. <a th:href="@{/teste/produtos}">Ver produtos</a>
+    </div>
+
+    <div class="row g-4" id="checkout-conteudo">
+        <section class="col-12 col-lg-7" aria-labelledby="titulo-cartao">
+            <div class="card">
+                <div class="card-body">
+                    <h2 id="titulo-cartao" class="h5 mb-3">Dados do cartão</h2>
+
+                    <form id="form-pagamento" th:action="@{/checkout/pagar}" th:object="${pagamento}" method="post">
+                        <div class="mb-3">
+                            <label for="titular" class="form-label">Nome impresso no cartão</label>
+                            <input type="text" id="titular" th:field="*{titular}" class="form-control"
+                                   autocomplete="cc-name" maxlength="80" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="numeroCartao" class="form-label">Número do cartão</label>
+                            <input type="text" id="numeroCartao" th:field="*{numeroCartao}" class="form-control"
+                                   inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000"
+                                   maxlength="23" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="validade" class="form-label">Validade (MM/AA)</label>
+                                <input type="text" id="validade" th:field="*{validade}" class="form-control"
+                                       inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA"
+                                       maxlength="5" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="password" id="cvv" th:field="*{cvv}" class="form-control"
+                                       inputmode="numeric" autocomplete="cc-csc" maxlength="4" required>
+                            </div>
+                        </div>
+
+                        <!-- o JavaScript preenche aqui o id e a quantidade de cada item do carrinho -->
+                        <div id="itens-hidden"></div>
+
+                        <button type="submit" id="btn-pagar" class="btn btn-primary">Pagar agora</button>
+                        <a class="btn btn-outline-secondary" th:href="@{/carrinho}">Voltar ao carrinho</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <aside class="col-12 col-lg-5" aria-labelledby="titulo-resumo">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 id="titulo-resumo" class="h5">Resumo do pedido</h2>
+                    <ul class="list-group list-group-flush" id="resumo-itens"></ul>
+                    <p class="d-flex justify-content-between fw-semibold mt-3 mb-0">
+                        <span>Total</span> <span id="resumo-total">R$ 0,00</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="alert alert-secondary small mb-0" role="note">
+                <p class="fw-semibold mb-1">Ambiente de simulação: nenhuma cobrança real é feita.</p>
+                <p class="mb-1">Cartões de teste (validade futura e CVV com 3 dígitos):</p>
+                <ul class="mb-0">
+                    <li>Aprovado: <code>4111 1111 1111 1111</code></li>
+                    <li>Aprovado: <code>5555 5555 5555 4444</code></li>
+                    <li>Recusado: <code>4000 0000 0000 0002</code></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<script th:src="@{/js/carrinho.js}"></script>
+<script th:src="@{/js/checkout.js}"></script>
+</body>
+</html>

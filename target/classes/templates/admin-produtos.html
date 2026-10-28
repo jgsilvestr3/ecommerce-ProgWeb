@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar produtos - ShopHub</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #263238;
+        }
+
+        a {
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #eef1f4;
+        }
+
+        .vazio {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a class="voltar" th:href="@{/}">← Voltar à loja</a>
+
+    <h1>Gerenciar produtos</h1>
+    <p>Consulte os produtos cadastrados na ShopHub.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Categoria</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="produto : ${produtos}">
+            <td th:text="${produto.id}">1</td>
+            <td th:text="${produto.nome}">Camiseta Básica</td>
+
+            <td th:text="${produto.preco != null
+                ? 'R$ ' + #numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')
+                : 'Não informado'}">
+                R$ 59,90
+            </td>
+
+            <td th:text="${produto.estoque}">10</td>
+
+            <td th:text="${produto.categoria != null
+                ? produto.categoria.nome
+                : 'Sem categoria'}">
+                Roupas
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(produtos)}">
+            <td colspan="5" class="vazio">
+                Nenhum produto cadastrado.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
