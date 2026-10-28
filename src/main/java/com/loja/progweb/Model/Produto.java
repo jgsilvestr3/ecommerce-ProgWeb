@@ -26,6 +26,8 @@ public class Produto {
     private BigDecimal preco;
 
     private Integer estoque;
+    // Caminho da imagem do produto
+    private String imagem;
 
     // Relacionamento: vários produtos podem pertencer à mesma categoria
     @ManyToOne(fetch = FetchType.EAGER)
@@ -98,5 +100,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getImagem() {
+    return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }
