@@ -12,7 +12,7 @@
         <div class="container">
             <a class="navbar-brand" th:href="@{/}">Loja</a>
             <div class="d-flex gap-2">
-                <a class="btn btn-outline-light btn-sm" th:href="@{/teste/produtos}">Produtos</a>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/produtos}">Produtos</a>
                 <a class="btn btn-outline-light btn-sm" th:href="@{/meus-pedidos}">Meus pedidos</a>
                 <a class="btn btn-outline-light btn-sm" th:href="@{/carrinho}">
                     Carrinho <span class="badge text-bg-primary" id="contador-carrinho">0</span>
@@ -28,7 +28,7 @@
     <div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}"></div>
 
     <div id="checkout-vazio" class="alert alert-info d-none" role="status">
-        Seu carrinho está vazio. <a th:href="@{/teste/produtos}">Ver produtos</a>
+        Seu carrinho está vazio. <a th:href="@{/produtos}">Ver produtos</a>
     </div>
 
     <div class="row g-4" id="checkout-conteudo">

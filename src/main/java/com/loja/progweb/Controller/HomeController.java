@@ -19,4 +19,8 @@ public class HomeController {
     public String login(){
         return "login";
     } 
+    @GetMapping("acesso-negado")
+    public String acessoNegado(){
+        return "acesso-negado";
+    } 
 }

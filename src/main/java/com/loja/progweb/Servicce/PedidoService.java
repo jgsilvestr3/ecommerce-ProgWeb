@@ -77,7 +77,7 @@ public class PedidoService {
                             "Um produto do carrinho não existe mais. Remova-o e tente de novo."));
 
             int quantidade = entrada.getValue();
-            int estoque = produto.getEstoque() == null ? 0 : produto.getEstoque();
+            int estoque = (Integer)produto.getEstoque() == null ? 0 : produto.getEstoque();
             if (quantidade > estoque) {
                 throw new CompraInvalidaException("Estoque insuficiente para \"" + produto.getNome()
                         + "\" (disponível: " + estoque + ").");

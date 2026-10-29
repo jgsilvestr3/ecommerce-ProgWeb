@@ -12,11 +12,32 @@
 
 <body>
 
-<div class="container mt-5">
+    <div th:replace="~{fragmento/navbar :: navbar}"></div>
+    <div class="container mt-5">
 
-    <h1>Bem vindo ao sistema</h1>
 
-</div>
+        <h1>Bem vindo ao sistema</h1>
+
+        <div class="mb-3">
+
+            <a th:href="@{/cadastro}" class="btn btn-primary">
+                Criar conta
+            </a>
+
+            <a th:href="@{/login}" class="btn btn-primary">
+                Login
+            </a>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">
+                    Sair
+                </button>
+            </form>
+
+        </div>
+        
+        
+    </div>
 
 </body>
 </html>

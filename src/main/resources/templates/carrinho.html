@@ -8,10 +8,11 @@
 </head>
 <body>
 <header>
+    
     <nav class="navbar navbar-dark bg-dark" aria-label="Navegação principal">
         <div class="container">
             <a class="navbar-brand" th:href="@{/}">Loja</a>
-            <a class="btn btn-outline-light" th:href="@{/teste/produtos}">Continuar comprando</a>
+            <a class="btn btn-outline-light" th:href="@{/produtos}">Continuar comprando</a>
         </div>
     </nav>
 </header>
@@ -23,7 +24,7 @@
     </p>
 
     <div id="carrinho-vazio" class="alert alert-info d-none" role="status">
-        Seu carrinho está vazio. <a th:href="@{/teste/produtos}">Ver produtos</a>
+        Seu carrinho está vazio. <a th:href="@{/produtos}">Ver produtos</a>
     </div>
 
     <div id="carrinho-conteudo" class="d-none">

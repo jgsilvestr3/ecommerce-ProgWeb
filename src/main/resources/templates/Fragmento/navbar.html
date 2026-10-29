@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lista de Produtos</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <nav th:fragment="navbar" class="navbar navbar-dark bg-dark" aria-label="Navegação principal">
+            <div class="container">
+                
+                <a class="navbar-brand" th:href="@{/}">Loja</a>
+
+                <div class="d-flex">
+                    <a th:href="@{/login}" class="btn btn-outline-light me-2">
+                        Login
+                    </a>
+
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-outline-light me-2" th:if="${#authentication.principal != 'anonymousUser'}">
+                            Sair
+                        </button>
+                    </form>
+
+                    <a class="btn btn-outline-light me-2" th:href="@{/carrinho}">
+                        Carrinho <span class="badge text-bg-primary " id="contador-carrinho">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+</body>
+</html>
