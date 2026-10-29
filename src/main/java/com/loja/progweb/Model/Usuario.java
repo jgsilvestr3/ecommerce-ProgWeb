@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity 
@@ -29,14 +28,13 @@ public class Usuario{
 
     @NotEmpty(message = "Telefone é obrigatório: ")
     private String telefone;
+    
     private boolean ativo;
 
     private String senha;
 
-    @NotEmpty(message = "Data é obrigatório: ")
     private String dataCadastro;
 
-    @NotNull(message = "Selecione o tipo de usuário")
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 

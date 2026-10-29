@@ -68,4 +68,10 @@ public class HomeController {
     public String login() {
         return "login";
     }
+
+    // Página mostrada quando alguém sem permissão tenta abrir uma tela (configurada no SecurityConfig)
+    @GetMapping("acesso-negado")
+    public String acessoNegado() {
+        return "acesso-negado";
+    }
 }

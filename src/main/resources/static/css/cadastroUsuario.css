@@ -1,0 +1,23 @@
+body {
+            background-color: #f8f9fa;
+        }
+
+        .cadastro-card {
+            width: 100%;
+            max-width: 650px;
+            border-radius: 15px;
+            border: none;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .btn {
+            border-radius: 8px;
+        }
+
+        .campo-obrigatorio {
+            color: #dc3545;
+        }

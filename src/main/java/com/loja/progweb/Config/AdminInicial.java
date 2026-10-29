@@ -10,10 +10,7 @@ import com.loja.progweb.Model.TipoUsuario;
 import com.loja.progweb.Model.Usuario;
 import com.loja.progweb.Repository.UsuarioRepository;
 
-/**
- * Garante que exista um administrador para o primeiro acesso.
- * Roda uma vez a cada inicialização, mas só cria se o e-mail ainda não existir.
- */
+/** Garante um administrador para o primeiro acesso (só cria se o e-mail ainda não existir). */
 @Component
 public class AdminInicial implements CommandLineRunner {
 

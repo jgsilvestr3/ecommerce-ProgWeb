@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopHub</title>
 
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
     <style>
         * {
             box-sizing: border-box;
@@ -213,48 +214,21 @@
                 padding: 0 14px;
             }
         }
+    
+        /* ---- botão do carrinho (acrescentado na integração) ---- */
+        .btn-add-carrinho { width: 100%; margin-top: 10px; padding: 10px 14px; border: none; border-radius: 6px; background: #2563eb; color: #ffffff; font-weight: 600; cursor: pointer; }
+        .btn-add-carrinho:hover { background: #1d4ed8; }
+        .btn-add-carrinho:disabled { background: #9ca3af; cursor: not-allowed; }
     </style>
 </head>
 
-<body>
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
 
     <!-- Barra superior -->
-    <header class="barra-superior">
-        <a class="logo" th:href="@{/}">ShopHub</a>
-
-        <nav class="menu">
-            <a href="#" title="Funcionalidade ainda não implementada">
-                ♡ Favoritos
-            </a>
-
-            <a th:href="@{/carrinho}">🛒 Carrinho</a>
-
-            <!-- Aparece quando ninguém está autenticado -->
-            <a th:if="${!usuarioLogado}" th:href="@{/login}">
-                👤 Minha conta
-            </a>
-
-            <!-- Aparece quando existe um usuário autenticado -->
-            <span th:if="${usuarioLogado}"
-                th:text="${emailUsuario}">
-                usuario@loja.com
-            </span>
-
-            <!-- Botão de sair: o Spring Security processa o logout -->
-            <form th:if="${usuarioLogado}"
-                th:action="@{/logout}"
-                method="post"
-                style="display: inline;">
-                <button type="submit"
-                        style="padding: 8px 12px; border: none; border-radius: 6px; background: #eee; cursor: pointer;">
-                    Sair
-                </button>
-            </form>
-        </nav>
-    </header>
+    <header th:replace="~{fragmento/navbar :: navbar}"></header>
 
     <!-- Conteúdo principal -->
-    <main class="conteudo">
+    <main id="conteudo" class="conteudo">
 
         <!-- Categorias carregadas do banco de dados -->
         <aside class="barra-categorias">
@@ -308,7 +282,7 @@
 
                 <article class="produto" th:each="produto : ${produtos}">
 
-                    <div class="imagem-produto">🛍️</div>
+                    <div class="imagem-produto" aria-hidden="true">🛍️</div>
 
                     <h3 th:text="${produto.nome}">
                         Nome do produto
@@ -335,6 +309,11 @@
                        th:if="${produto.estoque == null or produto.estoque <= 0}">
                         Indisponível
                     </p>
+                    <button type="button" class="btn-add-carrinho"
+                            th:disabled="${produto.estoque <= 0}"
+                            th:attr="data-id=${produto.id},data-nome=${produto.nome},data-preco=${produto.preco},data-estoque=${produto.estoque}">
+                        Adicionar ao carrinho
+                    </button>
 
                 </article>
             </div>
@@ -347,6 +326,8 @@
 
         </section>
     </main>
+
+    <footer th:replace="~{fragmento/rodape :: rodape}"></footer>
 
 </body>
 </html>

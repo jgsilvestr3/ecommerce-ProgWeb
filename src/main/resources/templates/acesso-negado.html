@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acesso negado | ShopHub</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
+</head>
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+<header th:replace="~{fragmento/navbar :: navbar}"></header>
+
+<main id="conteudo" class="sh-centro">
+    <div class="card sh-card-form p-4 text-center">
+        <h1 class="h3 fw-bold">Acesso negado</h1>
+        <p class="text-muted">Você não tem permissão para acessar esta página.</p>
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary" th:href="@{/}">Voltar para a loja</a>
+            <a class="btn btn-outline-primary" th:unless="${logado}" th:href="@{/login}">Entrar com outra conta</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragmento/rodape :: rodape}"></footer>
+</body>
+</html>

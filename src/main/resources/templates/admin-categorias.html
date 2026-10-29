@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar categorias - ShopHub</title>
 
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
             margin: 0;
-            padding: 30px;
+            padding: 0;
         }
 
         .container {
@@ -96,7 +97,9 @@
     </style>
 </head>
 
-<body>
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+    <header th:replace="~{fragmento/navbar :: navbar}"></header>
+    <main id="conteudo" class="sh-conteudo-admin">
 <div class="container">
 
     <a class="voltar" th:href="@{/}">← Voltar à loja</a>
@@ -114,7 +117,7 @@
 
     <form class="cadastro" th:action="@{/admin/categorias/salvar}"
           method="post">
-        <input type="text" name="nome"
+        <input aria-label="Nome da nova categoria" type="text" name="nome"
                placeholder="Nome da categoria" maxlength="255" required>
         <button type="submit" class="salvar">Cadastrar</button>
     </form>
@@ -152,5 +155,8 @@
     </table>
 
 </div>
+    </main>
+
+    <footer th:replace="~{fragmento/rodape :: rodape}"></footer>
 </body>
 </html>

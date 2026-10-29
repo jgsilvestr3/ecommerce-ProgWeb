@@ -1,6 +1,5 @@
 package com.loja.progweb.Servicce;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,77 +10,79 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.loja.progweb.Model.TipoUsuario;
 import com.loja.progweb.Model.Usuario;
 import com.loja.progweb.Repository.UsuarioRepository;
 
-@Service
-public class UsuarioService implements UserDetailsService {
+
+@Service 
+public class UsuarioService implements UserDetailsService{
 
     public final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+
+    // para criação de um adm se não existir
 
     public UsuarioService(UsuarioRepository usuario, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuario;
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Cadastro feito pelo ADMINISTRADOR (pode escolher o tipo)
-    public void salvar(Usuario usuario) {
+    public void salvar(Usuario usuario){
         boolean semSenhaNova = usuario.getSenha() == null || usuario.getSenha().isBlank();
         if (usuario.getId() != null && semSenhaNova) {
-            // edição sem trocar a senha: mantém o hash que já estava no banco
-            String senhaAtual = usuarioRepository.findById(usuario.getId()).orElseThrow().getSenha();
-            usuario.setSenha(senhaAtual);
+        // edição sem trocar a senha: mantém o hash que já está no banco
+            usuario.setSenha(usuarioRepository.findById(usuario.getId()).orElseThrow().getSenha());
         } else {
             usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         }
         usuarioRepository.save(usuario);
     }
 
-    // Cadastro PÚBLICO: o servidor decide tudo que é sensível, não o formulário
-    public void salvarCliente(Usuario usuario) {
-        usuario.setId(null);                       // nunca sobrescrever conta existente
-        usuario.setTipoUsuario(TipoUsuario.CLIENTE); // ninguém se cadastra como admin
-        usuario.setAtivo(true);
-        usuario.setDataCadastro(LocalDate.now().toString());
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        usuarioRepository.save(usuario);
-    }
-
-    public boolean emailEmUso(String email, Long idAtual) {
-        return usuarioRepository.findByEmail(email)
-                .filter(u -> idAtual == null || !u.getId().equals(idAtual))
-                .isPresent();
-    }
-
-    public Iterable<Usuario> listar() {
+    public Iterable<Usuario> listar(){
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> buscarPorId(Long id) {
+    public Optional<Usuario> buscarPorId(Long id){
         return usuarioRepository.findById(id);
     }
 
-    public void deletarPorId(Long id) {
+    public void deletarPorId(Long id){
         usuarioRepository.deleteById(id);
     }
 
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+
         Usuario usuario = usuarioRepository
                 .findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() ->
+                    new UsernameNotFoundException(
+                        "Usuário não encontrado"
+                    )
+                );
+        
+        String perfil = usuario.getTipoUsuario().name();
 
         List<SimpleGrantedAuthority> authorities =
-                List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getTipoUsuario().name()));
+            List.of(
+            new SimpleGrantedAuthority("ROLE_"+ perfil)
+        );
 
-        // o 3º argumento (enabled) faz o checkbox "Ativo" valer: usuário inativo não entra
         return new org.springframework.security.core.userdetails.User(
-                usuario.getEmail(),
-                usuario.getSenha(),
-                usuario.isAtivo(),
-                true, true, true,
-                authorities);
+            usuario.getEmail(),
+            usuario.getSenha(),
+            usuario.isAtivo(),
+        true,
+        true,
+        true,
+            authorities
+        );
+
+        //throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
+
+
 }

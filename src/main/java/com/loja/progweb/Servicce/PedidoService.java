@@ -52,8 +52,7 @@ public class PedidoService {
      * vêm SEMPRE do banco, porque o carrinho (localStorage) pode ser adulterado.
      */
     @Transactional
-    public Pedido finalizarCompra(String emailUsuario, List<Long> ids, List<Integer> quantidades,
-                                  PagamentoForm form) {
+    public Pedido finalizarCompra(String emailUsuario, List<Long> ids, List<Integer> quantidades, PagamentoForm form) {
 
         Map<Long, Integer> carrinho = consolidar(ids, quantidades);
         if (carrinho.isEmpty()) {
@@ -73,11 +72,15 @@ public class PedidoService {
         BigDecimal total = BigDecimal.ZERO;
         for (Map.Entry<Long, Integer> entrada : carrinho.entrySet()) {
             Produto produto = produtoRepository.findById(entrada.getKey())
-                    .orElseThrow(() -> new CompraInvalidaException(
-                            "Um produto do carrinho não existe mais. Remova-o e tente de novo."));
+                .orElseThrow(() -> new CompraInvalidaException(
+                "Um produto do carrinho não existe mais. Remova-o e tente de novo."));
+            if (produto.getPreco() == null || produto.getPreco().signum() <= 0) {
+                throw new CompraInvalidaException(
+                    "O produto \"" + produto.getNome() + "\" está indisponível no momento.");
+            }
 
             int quantidade = entrada.getValue();
-            int estoque = produto.getEstoque() == null ? 0 : produto.getEstoque();
+            int estoque = (Integer)produto.getEstoque() == null ? 0 : produto.getEstoque();
             if (quantidade > estoque) {
                 throw new CompraInvalidaException("Estoque insuficiente para \"" + produto.getNome()
                         + "\" (disponível: " + estoque + ").");

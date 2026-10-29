@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Rodapé</title>
+</head>
+<body>
+    <footer th:fragment="rodape" class="sh-footer">
+        <p>© 2026 ShopHub · Trabalho de Programação Web</p>
+        <!-- o carrinho.js roda em todas as telas para manter o contador do menu atualizado -->
+        <script th:src="@{/js/carrinho.js}"></script>
+    </footer>
+</body>
+</html>

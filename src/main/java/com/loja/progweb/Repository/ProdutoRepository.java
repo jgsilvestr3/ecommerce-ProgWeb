@@ -1,4 +1,3 @@
-
 package com.loja.progweb.Repository;
 
 import java.util.List;
@@ -18,6 +17,6 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long> {
     // Busca produtos pelo nome dentro de uma categoria específica
     List<Produto> findByCategoriaIdAndNomeContainingIgnoreCase(Long categoriaId, String nome);
 
+    // Verifica se existe algum produto usando a categoria (impede excluir categoria em uso)
     boolean existsByCategoriaId(Long categoriaId);
-
-}
+}   
