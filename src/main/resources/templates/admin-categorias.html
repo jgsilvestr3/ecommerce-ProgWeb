@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar categorias - ShopHub</title>
+
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #263238;
+        }
+
+        form.cadastro {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .salvar {
+            background: #1769aa;
+            color: white;
+        }
+
+        .excluir {
+            background: #c62828;
+            color: white;
+        }
+
+        .mensagem {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sucesso {
+            background: #d9f2df;
+            color: #17652a;
+        }
+
+        .erro {
+            background: #ffe0e0;
+            color: #a00000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #eef1f4;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1769aa;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+    <header th:replace="~{fragmento/navbar :: navbar}"></header>
+    <main id="conteudo" class="sh-conteudo-admin">
+<div class="container">
+
+    <a class="voltar" th:href="@{/}">← Voltar à loja</a>
+
+    <h1>Gerenciar categorias</h1>
+    <p>Cadastre e consulte as categorias dos produtos da ShopHub.</p>
+
+    <div th:if="${sucesso}" class="mensagem sucesso"
+         th:text="${sucesso}"></div>
+
+    <div th:if="${erro}" class="mensagem erro"
+         th:text="${erro}"></div>
+
+    <h2>Nova categoria</h2>
+
+    <form class="cadastro" th:action="@{/admin/categorias/salvar}"
+          method="post">
+        <input aria-label="Nome da nova categoria" type="text" name="nome"
+               placeholder="Nome da categoria" maxlength="255" required>
+        <button type="submit" class="salvar">Cadastrar</button>
+    </form>
+
+    <h2>Categorias cadastradas</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="categoria : ${categorias}">
+            <td th:text="${categoria.id}">1</td>
+            <td th:text="${categoria.nome}">Roupas</td>
+            <td>
+                <form th:action="@{/admin/categorias/excluir/{id}(id=${categoria.id})}"
+                      method="post">
+                    <button type="submit" class="excluir"
+                            onclick="return confirm('Deseja excluir esta categoria?')">
+                        Excluir
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(categorias)}">
+            <td colspan="3">Nenhuma categoria cadastrada.</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+    </main>
+
+    <footer th:replace="~{fragmento/rodape :: rodape}"></footer>
+</body>
+</html>

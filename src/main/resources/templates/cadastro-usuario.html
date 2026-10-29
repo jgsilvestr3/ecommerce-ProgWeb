@@ -2,103 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Cadastro de usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de usuário | ShopHub</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
 </head>
-<body>
-<main class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h1 class="h3 mb-0"
-                th:text="${modoAdmin ? (usuario.id == null ? 'Cadastrar novo usuário' : 'Editar usuário') : 'Criar minha conta'}">
-                Cadastro
-            </h1>
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+<header th:replace="~{fragmento/navbar :: navbar}"></header>
+
+<main id="conteudo" class="sh-centro">
+    <div class="card sh-card-form sh-card-largo p-4">
+        <div class="text-center mb-4">
+            <h1 class="h3 fw-bold"
+                th:text="${usuario.id == null} ? (${modoAdmin} ? 'Novo usuário' : 'Criar sua conta') : 'Editar usuário'">Criar sua conta</h1>
+            <p class="text-muted mb-0" th:if="${usuario.id == null}">Preencha os dados para realizar o cadastro</p>
+            <p class="text-muted mb-0" th:if="${usuario.id != null}">Atualize as informações do usuário</p>
         </div>
 
-        <div class="card-body">
-            <form th:action="${modoAdmin} ? @{/usuario/salvar} : @{/cadastro/salvar}"
-                  th:object="${usuario}" method="post">
+        <form th:action="${modoAdmin} ? @{/usuario/salvar} : @{/cliente/salvar}" th:object="${usuario}" method="post">
+            <input type="hidden" th:field="*{id}">
 
-                <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label for="nome" class="form-label fw-semibold">Nome completo <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <input type="text" th:field="*{nome}" class="form-control" id="nome" placeholder="Digite o nome completo" autocomplete="name" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="cpf" class="form-label fw-semibold">CPF <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <input type="text" th:field="*{cpf}" class="form-control" id="cpf" placeholder="000.000.000-00" inputmode="numeric" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="telefone" class="form-label fw-semibold">Telefone <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <input type="tel" th:field="*{telefone}" class="form-control" id="telefone" placeholder="(67) 99999-9999" autocomplete="tel" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label fw-semibold">E-mail <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="nome@exemplo.com" autocomplete="email" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome completo:</label>
-                    <input type="text" id="nome" th:field="*{nome}" class="form-control">
-                    <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></div>
+            <div class="mb-3">
+                <label for="senha" class="form-label fw-semibold">Senha <span class="campo-obrigatorio" aria-hidden="true" th:if="${usuario.id == null}">*</span></label>
+                <input type="password" th:field="*{senha}" class="form-control" id="senha"
+                       placeholder="Crie uma senha" autocomplete="new-password" th:required="${usuario.id == null}">
+                <div class="form-text" th:if="${usuario.id != null}">Deixe em branco para manter a senha atual.</div>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+            </div>
+
+            <!-- Opções que só o administrador vê -->
+            <div th:if="${modoAdmin}">
+                <hr class="my-3">
+                <h2 class="h6 fw-bold mb-3">Configurações do usuário</h2>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" th:field="*{ativo}" class="form-check-input" id="ativo">
+                    <label for="ativo" class="form-check-label">Usuário ativo</label>
                 </div>
 
-                <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF:</label>
-                    <input type="text" id="cpf" th:field="*{cpf}" class="form-control">
-                    <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="text-danger"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-mail:</label>
-                    <input type="text" id="email" th:field="*{email}" class="form-control">
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="text" id="telefone" th:field="*{telefone}" class="form-control">
-                    <div th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" class="text-danger"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="senha" class="form-label"
-                           th:text="${usuario.id == null} ? 'Senha:' : 'Nova senha (deixe em branco para manter a atual):'">Senha:</label>
-                    <input type="password" id="senha" th:field="*{senha}" class="form-control" autocomplete="new-password">
-                    <div th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="text-danger"></div>
-                </div>
-
-                <!-- Só o ADMINISTRADOR vê e altera estes campos -->
-                <div th:if="${modoAdmin}">
-                    <div class="mb-3 form-check">
-                        <input class="form-check-input" type="checkbox" id="ativo" th:field="*{ativo}">
-                        <label class="form-check-label" for="ativo">Usuário ativo</label>
+                <fieldset class="mb-3">
+                    <legend class="form-label fw-semibold fs-6">Tipo de usuário</legend>
+                    <div class="form-check">
+                        <input type="radio" th:field="*{tipoUsuario}" class="form-check-input" id="tipoCliente" value="CLIENTE">
+                        <label for="tipoCliente" class="form-check-label">Cliente</label>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="dataCadastro" class="form-label">Data do cadastro:</label>
-                        <input type="date" id="dataCadastro" th:field="*{dataCadastro}" class="form-control">
-                        <div th:if="${#fields.hasErrors('dataCadastro')}" th:errors="*{dataCadastro}" class="text-danger"></div>
+                    <div class="form-check">
+                        <input type="radio" th:field="*{tipoUsuario}" class="form-check-input" id="tipoAdministrador" value="ADMINISTRADOR">
+                        <label for="tipoAdministrador" class="form-check-label">Administrador</label>
                     </div>
+                    <div class="form-check">
+                        <input type="radio" th:field="*{tipoUsuario}" class="form-check-input" id="tipoFuncionario" value="FUNCIONARIO">
+                        <label for="tipoFuncionario" class="form-check-label">Funcionário</label>
+                    </div>
+                    <div class="text-danger small mt-1" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
+                </fieldset>
+            </div>
 
-                    <fieldset class="mb-3">
-                        <legend class="form-label fs-6">Tipo de usuário:</legend>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="tipo-cliente" th:field="*{tipoUsuario}" value="CLIENTE">
-                            <label class="form-check-label" for="tipo-cliente">Cliente</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="tipo-admin" th:field="*{tipoUsuario}" value="ADMINISTRADOR">
-                            <label class="form-check-label" for="tipo-admin">Administrador</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="tipo-func" th:field="*{tipoUsuario}" value="FUNCIONARIO">
-                            <label class="form-check-label" for="tipo-func">Funcionário</label>
-                        </div>
-                        <div th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}" class="text-danger"></div>
-                    </fieldset>
-                </div>
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasGlobalErrors()}">
+                <p class="mb-0" th:each="erro : ${#fields.globalErrors()}" th:text="${erro}"></p>
+            </div>
 
-                <!-- No cadastro público estes valores são só para passar na validação.
-                     O servidor ignora e define: tipo CLIENTE, ativo, data de hoje. -->
-                <div th:unless="${modoAdmin}">
-                    <input type="hidden" name="tipoUsuario" value="CLIENTE">
-                    <input type="hidden" name="dataCadastro" value="2000-01-01">
-                </div>
+            <div class="d-grid gap-2 mt-3">
+                <button type="submit" class="btn btn-primary fw-bold py-2"
+                        th:text="${usuario.id == null} ? 'Criar conta' : 'Salvar alterações'">Criar conta</button>
+            </div>
 
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary"
-                            th:text="${modoAdmin} ? 'Salvar usuário' : 'Criar minha conta'">Salvar</button>
-                    <a th:href="${modoAdmin} ? @{/usuarios} : @{/login}" class="btn btn-secondary">Voltar</a>
-                </div>
-            </form>
-        </div>
+            <div class="text-center mt-4">
+                <a th:unless="${modoAdmin}" th:href="@{/login}" class="small">Já tem uma conta? Faça login</a>
+                <a th:if="${modoAdmin}" th:href="@{/usuarios}" class="small">Voltar para a lista de usuários</a>
+            </div>
+        </form>
     </div>
 </main>
+
+<footer th:replace="~{fragmento/rodape :: rodape}"></footer>
 </body>
 </html>

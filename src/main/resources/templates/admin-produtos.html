@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar produtos - ShopHub</title>
+
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #263238;
+        }
+
+        a {
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .salvar {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 5px;
+            background: #1769aa;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mensagem {
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .sucesso {
+            background: #d9f2df;
+            color: #17652a;
+        }
+
+        .erro {
+            background: #ffe0e0;
+            color: #a00000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #eef1f4;
+        }
+
+        .vazio {
+            text-align: center;
+            color: #666;
+        }
+
+        .formulario {
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+    <header th:replace="~{fragmento/navbar :: navbar}"></header>
+    <main id="conteudo" class="sh-conteudo-admin">
+<div class="container">
+
+    <a class="voltar" th:href="@{/}">← Voltar à loja</a>
+
+    <h1>Gerenciar produtos</h1>
+
+    <div th:if="${sucesso}" class="mensagem sucesso"
+         th:text="${sucesso}"></div>
+
+    <div th:if="${erro}" class="mensagem erro"
+         th:text="${erro}"></div>
+
+    <h2>Cadastrar novo produto</h2>
+
+    <form class="formulario"
+          th:action="@{/admin/produtos/salvar}"
+          method="post">
+
+        <div class="campo">
+            <label for="nome">Nome do produto</label>
+            <input type="text" id="nome" name="nome"
+                   maxlength="255" required>
+        </div>
+
+        <div class="campo">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao"
+                      rows="3" maxlength="2000" required></textarea>
+        </div>
+
+        <div class="campo">
+            <label for="preco">Preço (R$)</label>
+            <input type="number" id="preco" name="preco"
+                   min="0.01" step="0.01" required>
+        </div>
+
+        <div class="campo">
+            <label for="estoque">Quantidade em estoque</label>
+            <input type="number" id="estoque" name="estoque"
+                   min="0" step="1" required>
+        </div>
+
+        <div class="campo">
+            <label for="categoriaId">Categoria</label>
+            <select id="categoriaId" name="categoriaId">
+                <option value="">Sem categoria</option>
+
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nome}">
+                    Categoria
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="salvar">
+            Cadastrar produto
+        </button>
+    </form>
+
+    <h2>Produtos cadastrados</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="produto : ${produtos}">
+            <td th:text="${produto.id}">1</td>
+            <td th:text="${produto.nome}">Camiseta Básica</td>
+
+            <td th:text="${produto.preco != null
+                ? 'R$ ' + #numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')
+                : 'Não informado'}">
+                R$ 59,90
+            </td>
+
+            <td th:text="${produto.estoque}">10</td>
+
+            <td th:text="${produto.categoria != null
+                ? produto.categoria.nome
+                : 'Sem categoria'}">
+                Roupas
+            </td>
+
+        <td>
+            <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}">
+                Editar
+            </a>
+
+            <form th:action="@{/admin/produtos/excluir/{id}(id=${produto.id})}"
+                method="post"
+                style="display: inline;"
+                onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+
+                <button type="submit"
+                        style="padding: 6px 10px; margin-left: 8px;
+                            background: #c62828; color: white;
+                            border: none; border-radius: 5px; cursor: pointer;">
+                    Excluir
+                </button>
+            </form>
+        </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(produtos)}">
+            <td colspan="5" class="vazio">
+                Nenhum produto cadastrado.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+    </main>
+
+    <footer th:replace="~{fragmento/rodape :: rodape}"></footer>
+</body>
+</html>

@@ -1,14 +1,19 @@
 (function () {
   'use strict';
 
-  var CHAVE = 'loja_carrinho';
+    // Carrinho separado por usuário: cada login tem a sua chave no localStorage.
+  // Visitante (sem login) usa a chave "loja_carrinho", como antes.
+  var CHAVE_VISITANTE = 'loja_carrinho';
+  var usuario = (document.body && document.body.dataset.usuario) || '';
+  var CHAVE = usuario ? CHAVE_VISITANTE + ':' + usuario : CHAVE_VISITANTE;
+  
   var moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
   // ---------- ler e gravar no localStorage ----------
 
-  function ler() {
+  function lerDe(chave) {
     try {
-      var dados = JSON.parse(localStorage.getItem(CHAVE));
+      var dados = JSON.parse(localStorage.getItem(chave));
       if (!Array.isArray(dados)) return [];
       // descarta itens inválidos (ex.: alguém editou o localStorage na mão)
       return dados.filter(function (i) {
@@ -20,6 +25,10 @@
     }
   }
 
+  function ler() {
+    return lerDe(CHAVE);
+  }
+
   function salvar(itens) {
     localStorage.setItem(CHAVE, JSON.stringify(itens));
     atualizarContador();
@@ -27,6 +36,24 @@
 
   function limiteDe(item) {
     return item.estoque > 0 ? item.estoque : 99;
+  }
+
+  // Ao entrar numa conta, os itens que a pessoa juntou como visitante passam para o carrinho dela
+  function migrarCarrinhoDeVisitante() {
+    if (!usuario) return;
+    var doVisitante = lerDe(CHAVE_VISITANTE);
+    if (doVisitante.length === 0) return;
+    var itens = ler();
+    doVisitante.forEach(function (novo) {
+      var existente = itens.find(function (i) { return i.id === novo.id; });
+      if (existente) {
+        existente.qtd = Math.min(existente.qtd + novo.qtd, limiteDe(existente));
+      } else {
+        itens.push(novo);
+      }
+    });
+    salvar(itens);
+    localStorage.removeItem(CHAVE_VISITANTE);
   }
 
   // ---------- operações do carrinho ----------
@@ -199,6 +226,7 @@
     }
   });
 
+  migrarCarrinhoDeVisitante();
   atualizarContador();
   renderizar();
 

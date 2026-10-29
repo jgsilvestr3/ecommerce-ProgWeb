@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+    <!-- Menu único do ShopHub: aparece em todas as telas e muda conforme o perfil de quem está logado -->
+    <header th:fragment="navbar" class="sh-header">
+        <a class="sh-skip" href="#conteudo">Pular para o conteúdo</a>
+
+        <nav class="sh-nav" aria-label="Navegação principal">
+            <a class="sh-logo" th:href="@{/}">ShopHub</a>
+
+            <ul class="sh-menu">
+                <li><a th:href="@{/}">Início</a></li>
+                <li th:if="${logado}"><a th:href="@{/meus-pedidos}">Meus pedidos</a></li>
+                <li th:if="${ehEquipe}"><a th:href="@{/admin/produtos}">Gerenciar produtos</a></li>
+                <li th:if="${ehAdmin}"><a th:href="@{/admin/categorias}">Categorias</a></li>
+                <li th:if="${ehAdmin}"><a th:href="@{/usuarios}">Usuários</a></li>
+                <li>
+                    <a th:href="@{/carrinho}">
+                        <span aria-hidden="true">🛒</span> Carrinho
+                        <span class="sh-badge" id="contador-carrinho">0</span><span class="sh-oculto"> itens no carrinho</span>
+                    </a>
+                </li>
+                <li th:unless="${logado}"><a th:href="@{/login}">Entrar</a></li>
+                <li th:unless="${logado}"><a class="sh-botao" th:href="@{/cadastro}">Cadastrar</a></li>
+                <li th:if="${logado}" class="sh-usuario" th:text="${emailLogado}">usuario@email.com</li>
+                <li th:if="${logado}">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="sh-sair">Sair</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

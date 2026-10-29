@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar produto - ShopHub</title>
+
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #263238;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 5px;
+            background: #1769aa;
+            color: white;
+            cursor: pointer;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        .erro {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background: #ffe0e0;
+            color: #a00000;
+        }
+    </style>
+</head>
+
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+    <header th:replace="~{fragmento/navbar :: navbar}"></header>
+    <main id="conteudo" class="sh-conteudo-admin">
+<div class="container">
+
+    <a class="voltar" th:href="@{/admin/produtos}">
+        ← Voltar aos produtos
+    </a>
+
+    <h1>Editar produto</h1>
+
+    <div th:if="${erro}" class="erro" th:text="${erro}"></div>
+
+    <form th:action="@{/admin/produtos/atualizar/{id}(id=${produto.id})}"
+          method="post">
+
+        <div class="campo">
+            <label for="nome">Nome do produto</label>
+            <input type="text" id="nome" name="nome"
+                   th:value="${produto.nome}" maxlength="255" required>
+        </div>
+
+        <div class="campo">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" rows="3"
+                      maxlength="2000" required
+                      th:text="${produto.descricao}"></textarea>
+        </div>
+
+        <div class="campo">
+            <label for="preco">Preço (R$)</label>
+            <input type="number" id="preco" name="preco"
+                   min="0.01" step="0.01"
+                   th:value="${produto.preco}" required>
+        </div>
+
+        <div class="campo">
+            <label for="estoque">Quantidade em estoque</label>
+            <input type="number" id="estoque" name="estoque"
+                   min="0" step="1"
+                   th:value="${produto.estoque}" required>
+        </div>
+
+        <div class="campo">
+            <label for="categoriaId">Categoria</label>
+            <select id="categoriaId" name="categoriaId">
+                <option value="">Sem categoria</option>
+
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nome}"
+                        th:selected="${produto.categoria != null and produto.categoria.id == categoria.id}">
+                    Categoria
+                </option>
+            </select>
+        </div>
+
+        <button type="submit">Salvar alterações</button>
+    </form>
+
+</div>
+    </main>
+
+    <footer th:replace="~{fragmento/rodape :: rodape}"></footer>
+</body>
+</html>

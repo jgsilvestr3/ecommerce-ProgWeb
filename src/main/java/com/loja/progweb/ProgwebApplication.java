@@ -8,6 +8,6 @@ public class ProgwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProgwebApplication.class, args);
-	}	
+	}
 
 }

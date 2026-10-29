@@ -1,0 +1,76 @@
+/* ShopHub: identidade visual compartilhada (baseada no visual da home do Lucas) */
+:root {
+  --sh-azul: #2563eb;
+  --sh-azul-escuro: #1d4ed8;
+  --sh-azul-claro: #eff6ff;
+  --sh-fundo: #f5f6f8;
+  --sh-texto: #222222;
+  --sh-suave: #5b6472;
+  --sh-borda: #d9dee7;
+  --sh-erro: #b42318;
+  /* cores de links do Bootstrap, na paleta ShopHub */
+  --bs-link-color: #2563eb;
+  --bs-link-color-rgb: 37, 99, 235;
+  --bs-link-hover-color: #1d4ed8;
+  --bs-link-hover-color-rgb: 29, 78, 216;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background-color: var(--sh-fundo); color: var(--sh-texto); }
+.sh-pagina { min-height: 100vh; display: flex; flex-direction: column; }
+.sh-pagina > main { flex: 1 0 auto; }
+:focus-visible { outline: 3px solid #1e3a8a; outline-offset: 2px; }
+
+/* acessibilidade */
+.sh-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sh-skip { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 8px 12px; border-radius: 6px; background: #ffffff; color: var(--sh-azul-escuro); }
+.sh-skip:focus { left: 8px; }
+
+/* cabeçalho (menu único) */
+.sh-header { background-color: #ffffff; box-shadow: 0 2px 8px #00000012; }
+.sh-nav { min-height: 75px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.sh-logo { color: var(--sh-azul); font-size: 28px; font-weight: bold; text-decoration: none; }
+.sh-menu { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; }
+.sh-menu a { color: #333333; text-decoration: none; font-size: 15px; }
+.sh-menu a:hover { color: var(--sh-azul); }
+.sh-menu a.sh-botao { padding: 8px 16px; border-radius: 8px; background: var(--sh-azul); color: #ffffff; }
+.sh-menu a.sh-botao:hover { background: var(--sh-azul-escuro); color: #ffffff; }
+.sh-usuario { color: var(--sh-suave); font-size: 14px; }
+.sh-sair { padding: 8px 14px; border: 1px solid var(--sh-borda); border-radius: 8px; background: #ffffff; color: #333333; font-size: 14px; cursor: pointer; }
+.sh-sair:hover { background: var(--sh-azul-claro); color: var(--sh-azul-escuro); }
+.sh-badge { display: inline-block; min-width: 22px; padding: 1px 7px; margin-left: 4px; border-radius: 999px; background: var(--sh-azul); color: #ffffff; font-size: 0.8rem; text-align: center; }
+
+/* rodapé */
+.sh-footer { margin-top: 40px; padding: 22px 5%; background: #ffffff; border-top: 1px solid var(--sh-borda); color: var(--sh-suave); font-size: 14px; }
+.sh-footer p { margin: 0; }
+
+/* telas de administração do Lucas (conteúdo dentro do <main>) */
+.sh-conteudo-admin { padding: 30px; }
+
+@media (max-width: 700px) {
+  .sh-nav { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .sh-menu { gap: 10px 16px; }
+  .sh-conteudo-admin { padding: 20px; }
+}
+
+/* páginas feitas com Bootstrap (login, cadastro, tabelas, carrinho, pagamento...) */
+.sh-pagina main.container { padding-top: 28px; padding-bottom: 28px; }
+.sh-centro { display: flex; justify-content: center; align-items: flex-start; padding: 32px 16px; }
+.sh-card-form { width: 100%; max-width: 440px; }
+.sh-card-largo { max-width: 650px; }
+.card { border: none; border-radius: 10px; box-shadow: 0 2px 8px #0000000a; }
+.sh-card-form.card { border-radius: 12px; box-shadow: 0 2px 12px #0000001a; }
+.form-control, .form-select { border: 1px solid var(--sh-borda); border-radius: 8px; padding: 10px 12px; }
+.btn { border-radius: 8px; }
+.btn-primary { background-color: var(--sh-azul); border-color: var(--sh-azul); }
+.btn-primary:hover, .btn-primary:focus { background-color: var(--sh-azul-escuro); border-color: var(--sh-azul-escuro); }
+.btn-outline-primary { color: var(--sh-azul); border-color: var(--sh-azul); }
+.btn-outline-primary:hover { background-color: var(--sh-azul); border-color: var(--sh-azul); color: #ffffff; }
+.btn-danger { background-color: var(--sh-erro); border-color: var(--sh-erro); }
+.btn-outline-danger { color: var(--sh-erro); border-color: var(--sh-erro); }
+.btn-outline-danger:hover { background-color: var(--sh-erro); border-color: var(--sh-erro); color: #ffffff; }
+.text-muted, .text-body-secondary { color: var(--sh-suave) !important; }
+.text-danger, .campo-obrigatorio { color: var(--sh-erro) !important; }
+.text-bg-success { background-color: #146c43 !important; }
+.text-bg-danger { background-color: var(--sh-erro) !important; }
+.table { background: #ffffff; }
+h1, h2, h3 { color: var(--sh-texto); }

@@ -1,87 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Alunos</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuários | ShopHub</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/shophub.css}">
 </head>
+<body class="sh-pagina" th:attr="data-usuario=${emailLogado}">
+<header th:replace="~{fragmento/navbar :: navbar}"></header>
 
-<body>
+<main id="conteudo" class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="h3 mb-0">Usuários do sistema</h1>
+        <a class="btn btn-primary" th:href="@{/novo/usuario}">Cadastrar novo usuário</a>
+    </div>
 
-<div class="container mt-5">
+    <div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}"></div>
+    <div class="alert alert-success" role="status" th:if="${sucesso}" th:text="${sucesso}"></div>
 
-    <h2 class="mb-4">Usuários do Sistema</h2>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <caption class="sh-oculto">Lista de usuários cadastrados</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Situação</th>
+                    <th scope="col">Cadastro</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col"><span class="sh-oculto">Ações</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nome}">Nome</td>
+                    <td th:text="${usuario.cpf}">000.000.000-00</td>
+                    <td th:text="${usuario.email}">email@exemplo.com</td>
+                    <td th:text="${usuario.telefone}">(00) 00000-0000</td>
+                    <td>
+                        <span class="badge" th:classappend="${usuario.ativo} ? 'text-bg-success' : 'text-bg-secondary'"
+                              th:text="${usuario.ativo} ? 'Ativo' : 'Inativo'">Ativo</span>
+                    </td>
+                    <td th:text="${usuario.dataCadastro}">2026-01-01</td>
+                    <td th:text="${usuario.tipoUsuario}">CLIENTE</td>
+                    <td class="text-nowrap">
+                        <a class="btn btn-sm btn-outline-primary" th:href="@{/usuario/editar/{id}(id=${usuario.id})}"
+                           th:aria-label="|Editar ${usuario.nome}|">Editar</a>
+                        <form th:action="@{/usuario/excluir/{id}(id=${usuario.id})}" method="post" class="d-inline"
+                              onsubmit="return confirm('Deseja realmente excluir este usuário?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                    th:aria-label="|Excluir ${usuario.nome}|">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(usuarios)}">
+                    <td colspan="8" class="text-center">Nenhum usuário cadastrado até o momento.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
 
-    <table class="table table-striped table-hover table-bordered">
-
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>E-mail</th>
-                <th>Telefone</th>
-                <th>Situação</th>
-                <th>Data do Cadastro</th>
-                <th>Tipo</th>
-                <th></th>
-            </tr>
-
-        </thead>
-        <!-- id nome cpf email telefone ativo senha dataCadastro tipoUsuario; -->
-
-        <tbody>
-
-            <tr th:each="usuario : ${usuarios}">
-
-                <td th:text="${usuario.id}"></td>
-                <td th:text="${usuario.nome}"></td>
-                <td th:text="${usuario.cpf}"></td>
-                <td th:text="${usuario.email}"></td>
-                <td th:text="${usuario.telefone}"></td>
-                <td th:text="${usuario.ativo}"></td>
-                <td th:text="${usuario.dataCadastro}"></td>
-                <td th:text="${usuario.tipoUsuario}"></td>
-
-                <td>
-
-                    <!-- Editar -->
-                    <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}"
-                       class="btn btn-warning btn-sm">
-                        Editar
-                    </a>
-
-                    <!-- Excluir -->
-                    <div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}"></div>
-                    <form th:action="@{/usuario/excluir/{id}(id=${usuario.id})}" method="post" class="d-inline"
-                        onsubmit="return confirm('Deseja realmente excluir este usuário?');">
-                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                    </form>
-
-                </td>
-
-            </tr>
-
-            <tr th:if="${#lists.isEmpty(usuarios)}">
-                <td colspan="4" class="text-center">
-                    Nenhum usuário cadastrado até o momento.
-                </td>
-            </tr>
-
-        </tbody>
-
-    </table>
-
-    <a th:href="@{/novo/usuario}"
-       class="btn btn-primary">
-        Cadastrar Novo Usuário
-    </a>
-
-</div>
-
+<footer th:replace="~{fragmento/rodape :: rodape}"></footer>
 </body>
 </html>
