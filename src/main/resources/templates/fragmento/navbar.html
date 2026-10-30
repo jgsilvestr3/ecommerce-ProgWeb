@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
@@ -14,20 +16,45 @@
 
             <ul class="sh-menu">
                 <li><a th:href="@{/}">Início</a></li>
-                <li th:if="${logado}"><a th:href="@{/meus-pedidos}">Meus pedidos</a></li>
-                <li th:if="${ehEquipe}"><a th:href="@{/admin/produtos}">Gerenciar produtos</a></li>
-                <li th:if="${ehAdmin}"><a th:href="@{/admin/categorias}">Categorias</a></li>
-                <li th:if="${ehAdmin}"><a th:href="@{/usuarios}">Usuários</a></li>
+
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/meus-pedidos}">Meus pedidos</a>
+                </li>
+
+                <li sec:authorize="hasAnyRole('ADMINISTRADOR', 'FUNCIONARIO')">
+                    <a th:href="@{/admin/produtos}">Gerenciar produtos</a>
+                </li>
+
+                <li sec:authorize="hasRole('ADMINISTRADOR')">
+                    <a th:href="@{/admin/categorias}">Categorias</a>
+                </li>
+
+                <li sec:authorize="hasRole('ADMINISTRADOR')">
+                    <a th:href="@{/usuarios}">Usuários</a>
+                </li>
+
                 <li>
                     <a th:href="@{/carrinho}">
                         <span aria-hidden="true">🛒</span> Carrinho
-                        <span class="sh-badge" id="contador-carrinho">0</span><span class="sh-oculto"> itens no carrinho</span>
+                        <span class="sh-badge" id="contador-carrinho">0</span>
+                        <span class="sh-oculto"> itens no carrinho</span>
                     </a>
                 </li>
-                <li th:unless="${logado}"><a th:href="@{/login}">Entrar</a></li>
-                <li th:unless="${logado}"><a class="sh-botao" th:href="@{/cadastro}">Cadastrar</a></li>
-                <li th:if="${logado}" class="sh-usuario" th:text="${emailLogado}">usuario@email.com</li>
-                <li th:if="${logado}">
+
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}">Entrar</a>
+                </li>
+
+                <li sec:authorize="isAnonymous()">
+                    <a class="sh-botao" th:href="@{/cadastro}">Cadastrar</a>
+                </li>
+
+                <li sec:authorize="isAuthenticated()"
+                    class="sh-usuario"
+                    sec:authentication="name">
+                </li>
+
+                <li sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" method="post">
                         <button type="submit" class="sh-sair">Sair</button>
                     </form>
@@ -35,5 +62,6 @@
             </ul>
         </nav>
     </header>
+
 </body>
 </html>
