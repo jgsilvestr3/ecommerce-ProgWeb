@@ -1,6 +1,6 @@
 # ShopHub
 
-Loja virtual desenvolvida para a disciplina de **Programação Web (2026-2)**, com **Spring Boot** e **Thymeleaf** (renderização no servidor, Opção A do enunciado).
+Loja virtual desenvolvida para a disciplina de **Programação Web (2026-2)**, com **Spring Boot** e **Thymeleaf** (renderização no servidor).
 
 Visitantes navegam pelo catálogo com busca e filtro por categoria. Clientes montam um carrinho, pagam com cartão (pagamento **simulado**) e acompanham seus pedidos. Funcionários e administradores gerenciam produtos, categorias e usuários.
 
