@@ -1,8 +1,10 @@
 package com.loja.progweb.Controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.loja.progweb.Model.TipoUsuario;
 import com.loja.progweb.Model.Usuario;
@@ -43,7 +46,8 @@ public class UsuarioController {
     public ModelAndView novoUsuario(){
 
         Usuario us = new Usuario();
-
+        us.setAtivo(true);
+        us.setTipoUsuario(TipoUsuario.CLIENTE);
 
         return new ModelAndView("cadastro-usuario").addObject("usuario", us).addObject("modoAdmin", true);
     }
@@ -64,9 +68,21 @@ public class UsuarioController {
 
     }
 
-    @GetMapping ("/usuario/excluir/{id}")
-    public String excluir(@PathVariable Long id){
-        usuarioService.deletarPorId(id);
+    // POST (e não GET): um link ou imagem em outro site não consegue apagar usuários
+    @PostMapping("/usuario/excluir/{id}")
+    public String excluir(@PathVariable Long id, Principal principal, RedirectAttributes ra){
+        Usuario alvo = usuarioService.buscarPorId(id).orElseThrow();
+
+        if (alvo.getEmail().equals(principal.getName())) {
+            ra.addFlashAttribute("erro", "Você não pode excluir a sua própria conta.");
+            return "redirect:/usuarios";
+        }
+        try {
+            usuarioService.deletarPorId(id);
+            ra.addFlashAttribute("sucesso", "Usuário excluído.");
+        } catch (DataIntegrityViolationException e) {
+            ra.addFlashAttribute("erro", "Este usuário tem pedidos e não pode ser excluído. Desative-o no cadastro.");
+        }
         return "redirect:/usuarios";
     }
 
