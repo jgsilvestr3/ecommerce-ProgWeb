@@ -221,6 +221,31 @@
         .btn-add-carrinho { width: 100%; margin-top: 10px; padding: 10px 14px; border: none; border-radius: 6px; background: #2563eb; color: #ffffff; font-weight: 600; cursor: pointer; }
         .btn-add-carrinho:hover { background: #1d4ed8; }
         .btn-add-carrinho:disabled { background: #9ca3af; cursor: not-allowed; }
+    
+        /* Organiza os elementos dos cards verticalmente */
+        .produto {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Limita os títulos dos produtos a duas linhas */
+        .produto h3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Limita as descrições a três linhas e ocupa o espaço disponível */
+        .descricao {
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 
