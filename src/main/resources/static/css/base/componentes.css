@@ -1,0 +1,204 @@
+/* Área de conteúdo das páginas com Bootstrap */
+.sh-pagina main.container {
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+/* Centralização de formulários */
+.sh-centro {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 16px;
+}
+
+.sh-card-form {
+    width: 100%;
+    max-width: 440px;
+}
+
+.sh-card-largo {
+    max-width: 650px;
+}
+
+/* Cards */
+.card {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    box-shadow: var(--sh-sombra);
+}
+
+.sh-card-form.card {
+    border-radius: 12px;
+    box-shadow: var(--sh-sombra);
+}
+
+/* Campos de formulário */
+.form-control,
+.form-select {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie);
+    border-color: var(--sh-azul);
+    box-shadow: 0 0 0 0.2rem #2563eb30;
+}
+
+.form-control::placeholder {
+    color: var(--sh-texto-secundario);
+}
+
+.form-check-input {
+    background-color: var(--sh-superficie);
+    border-color: var(--sh-borda);
+}
+
+.form-check-input:checked {
+    background-color: var(--sh-azul-escuro);
+    border-color: var(--sh-azul-escuro);
+}
+
+/* Botões */
+.btn {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: var(--sh-azul-escuro);
+    border-color: var(--sh-azul-escuro);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--sh-azul);
+    border-color: var(--sh-azul);
+}
+
+.btn-outline-primary {
+    color: var(--sh-azul);
+    border-color: var(--sh-azul);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--sh-azul);
+    border-color: var(--sh-azul);
+    color: #ffffff;
+}
+
+.btn-danger {
+    background-color: var(--sh-erro);
+    border-color: var(--sh-erro);
+}
+
+.btn-outline-danger {
+    color: var(--sh-erro);
+    border-color: var(--sh-erro);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--sh-erro);
+    border-color: var(--sh-erro);
+    color: #ffffff;
+}
+
+/* Textos e mensagens */
+.text-muted,
+.text-body-secondary {
+    color: var(--sh-texto-secundario) !important;
+}
+
+.text-danger,
+.campo-obrigatorio {
+    color: var(--sh-erro) !important;
+}
+
+.text-bg-success {
+    background-color: #146c43 !important;
+}
+
+.text-bg-danger {
+    background-color: var(--sh-erro) !important;
+}
+
+/* Tabelas */
+.table {
+    color: var(--sh-texto);
+    --bs-table-color: var(--sh-texto);
+    --bs-table-bg: var(--sh-superficie);
+    --bs-table-border-color: var(--sh-borda);
+    --bs-table-striped-color: var(--sh-texto);
+    --bs-table-striped-bg: var(--sh-superficie-secundaria);
+    --bs-table-hover-color: var(--sh-texto);
+    --bs-table-hover-bg: var(--sh-superficie-secundaria);
+}
+
+/* Listas do Bootstrap */
+.list-group-item {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie);
+    border-color: var(--sh-borda);
+}
+
+/* Alertas */
+.alert-info {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie-secundaria);
+    border-color: var(--sh-borda);
+}
+
+.alert-secondary {
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie-secundaria);
+    border-color: var(--sh-borda);
+}
+
+.alert-danger {
+    color: var(--sh-erro);
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--sh-texto);
+}
+
+/* =========================================
+   AJUSTES DO BOOTSTRAP NO TEMA ESCURO
+   ========================================= */
+
+:root[data-tema="escuro"] .table-light {
+    --bs-table-color: var(--sh-texto);
+    --bs-table-bg: var(--sh-superficie-secundaria);
+    --bs-table-border-color: var(--sh-borda);
+}
+
+:root[data-tema="escuro"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+:root[data-tema="escuro"] .dropdown-menu {
+    background-color: var(--sh-superficie);
+    border-color: var(--sh-borda);
+}
+
+:root[data-tema="escuro"] .dropdown-item {
+    color: var(--sh-texto);
+}
+
+:root[data-tema="escuro"] .dropdown-item:hover {
+    background-color: var(--sh-superficie-secundaria);
+    color: var(--sh-texto);
+}

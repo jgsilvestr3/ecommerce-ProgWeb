@@ -1,0 +1,12 @@
+.sh-footer {
+    margin-top: 40px;
+    padding: 22px 5%;
+    background: var(--sh-superficie);
+    border-top: 1px solid var(--sh-borda);
+    color: var(--sh-texto-secundario);
+    font-size: 14px;
+}
+
+.sh-footer p {
+    margin: 0;
+}

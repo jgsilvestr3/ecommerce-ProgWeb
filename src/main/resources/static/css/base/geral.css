@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--sh-fundo);
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--sh-fundo);
+    color: var(--sh-texto);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sh-pagina {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sh-pagina > main {
+    flex: 1 0 auto;
+}
+
+:focus-visible {
+    outline: 3px solid var(--sh-azul);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   ACESSIBILIDADE
+   ========================================= */
+
+.sh-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.sh-skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 100;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--sh-superficie);
+    color: var(--sh-azul-escuro);
+}
+
+.sh-skip:focus {
+    left: 8px;
+}
+
+/* =========================================
+   RESPONSIVIDADE GERAL
+   ========================================= */
+
+@media (max-width: 700px) {
+    .sh-conteudo-admin {
+        padding: 20px;
+    }
+}
+
+/* =========================================
+   PÁGINAS DE ADMINISTRAÇÃO
+   ========================================= */
+
+.sh-conteudo-admin {
+    padding: 30px;
+}

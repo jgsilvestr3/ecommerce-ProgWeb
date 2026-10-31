@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicialização do tema</title>
+</head>
+<body>
+    <th:block th:fragment="tema-inicial">
+        <script>
+            (function () {
+                try {
+                    const temaSalvo = localStorage.getItem('shophub-tema');
+
+                    const tema = temaSalvo === 'escuro' ? 'escuro' : 'claro';
+
+                    document.documentElement.setAttribute('data-tema', tema);
+                } catch (erro) {
+                    document.documentElement.setAttribute('data-tema', 'claro');
+                }
+            })();
+        </script>
+    </th:block>
+</body>
+</html>

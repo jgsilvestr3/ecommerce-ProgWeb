@@ -1,0 +1,155 @@
+.sh-admin-categorias__painel {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    box-shadow: var(--sh-sombra);
+}
+
+.sh-admin-categorias__painel h1,
+.sh-admin-categorias__painel h2 {
+    color: var(--sh-texto);
+}
+
+.sh-admin-categorias__painel h1 {
+    margin-bottom: 12px;
+}
+
+.sh-admin-categorias__painel h2 {
+    margin: 25px 0 15px;
+}
+
+.sh-admin-categorias__painel p {
+    color: var(--sh-texto-secundario);
+}
+
+.sh-admin-categorias__voltar {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--sh-azul);
+    text-decoration: none;
+}
+
+.sh-admin-categorias__voltar:hover {
+    text-decoration: underline;
+}
+
+.sh-admin-categorias__cadastro {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.sh-admin-categorias__cadastro input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 5px;
+}
+
+.sh-admin-categorias__cadastro input:focus {
+    outline: none;
+    border-color: var(--sh-azul);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sh-azul) 20%, transparent);
+}
+
+.sh-admin-categorias__salvar,
+.sh-admin-categorias__excluir {
+    padding: 10px 14px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sh-admin-categorias__salvar {
+    background: var(--sh-azul-escuro);
+}
+
+.sh-admin-categorias__salvar:hover {
+    background: var(--sh-azul);
+}
+
+.sh-admin-categorias__excluir {
+    background: #c62828;
+}
+
+.sh-admin-categorias__excluir:hover {
+    background: #a51f1f;
+}
+
+.sh-admin-categorias__mensagem {
+    padding: 10px;
+    margin-bottom: 15px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie-secundaria);
+    border: 1px solid var(--sh-borda);
+    border-radius: 5px;
+}
+
+.sh-admin-categorias__sucesso {
+    border-left: 4px solid #198754;
+}
+
+.sh-admin-categorias__erro {
+    color: var(--sh-erro);
+    border-left: 4px solid var(--sh-erro);
+}
+
+.sh-admin-categorias__tabela-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.sh-admin-categorias__tabela {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+}
+
+.sh-admin-categorias__tabela th,
+.sh-admin-categorias__tabela td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--sh-borda);
+}
+
+.sh-admin-categorias__tabela th {
+    background: var(--sh-superficie-secundaria);
+}
+
+.sh-admin-categorias__tabela tbody tr:hover {
+    background: var(--sh-superficie-secundaria);
+}
+
+.sh-admin-categorias__vazio {
+    padding: 20px !important;
+    text-align: center !important;
+    color: var(--sh-texto-secundario);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .sh-admin-categorias__painel {
+        padding: 15px;
+    }
+
+    .sh-admin-categorias__cadastro {
+        flex-direction: column;
+    }
+
+    .sh-admin-categorias__salvar {
+        width: 100%;
+    }
+
+    .sh-admin-categorias__tabela {
+        min-width: 400px;
+    }
+}
