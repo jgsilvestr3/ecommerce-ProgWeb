@@ -40,6 +40,16 @@
                         <span class="sh-oculto"> itens no carrinho</span>
                     </a>
                 </li>
+                
+                <!-- Botão para alternar entre tema claro e escuro -->
+                <li>
+                    <button type="button" id="botao-tema"
+                            class="sh-tema"
+                            aria-label="Ativar tema escuro"
+                            aria-pressed="false">
+                        Tema escuro
+                    </button>
+                </li>
 
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/login}">Entrar</a>
@@ -61,6 +71,9 @@
                 </li>
             </ul>
         </nav>
+
+    <script th:src="@{/js/tema.js}" defer></script>
+    
     </header>
 
 </body>

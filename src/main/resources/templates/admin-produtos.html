@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" th:href="@{/css/shophub.css}">
     <style>
+                
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
@@ -15,18 +16,21 @@
             padding: 0;
         }
 
+        /* Área principal */
         .container {
             max-width: 1100px;
             margin: auto;
             padding: 25px;
-            background: white;
+            background: #ffffff;
             border-radius: 10px;
         }
 
+        /* Títulos */
         h1, h2 {
             color: #263238;
         }
 
+        /* Links */
         a {
             color: #1769aa;
             text-decoration: none;
@@ -37,6 +41,7 @@
             margin-bottom: 20px;
         }
 
+        /* Campos do formulário */
         .campo {
             margin-bottom: 15px;
         }
@@ -53,12 +58,15 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background: #ffffff;
+            color: #222222;
         }
 
         textarea {
             resize: vertical;
         }
 
+        /* Botão de cadastro */
         .salvar {
             padding: 11px 18px;
             border: none;
@@ -68,6 +76,7 @@
             cursor: pointer;
         }
 
+        /* Mensagens */
         .mensagem {
             padding: 12px;
             margin: 15px 0;
@@ -84,6 +93,7 @@
             color: #a00000;
         }
 
+        /* Tabela de produtos */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -109,6 +119,73 @@
             max-width: 650px;
             margin-bottom: 40px;
         }
+
+        /* ===== Tema escuro ===== */
+
+        /* Painel principal */
+        :root[data-tema="escuro"] .container {
+            background: #1f2937;
+            color: #e5e7eb;
+            box-shadow: 0 2px 8px #00000030;
+        }
+
+        /* Títulos */
+        :root[data-tema="escuro"] h1,
+        :root[data-tema="escuro"] h2 {
+            color: #e5e7eb;
+        }
+
+        /* Links */
+        :root[data-tema="escuro"] a {
+            color: #60a5fa;
+        }
+
+        /* Campos do formulário */
+        :root[data-tema="escuro"] input,
+        :root[data-tema="escuro"] textarea,
+        :root[data-tema="escuro"] select {
+            background: #273449;
+            color: #e5e7eb;
+            border-color: #4b5563;
+        }
+
+        :root[data-tema="escuro"] input::placeholder,
+        :root[data-tema="escuro"] textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Rótulos */
+        :root[data-tema="escuro"] label {
+            color: #e5e7eb;
+        }
+
+        /* Tabela */
+        :root[data-tema="escuro"] th {
+            background: #273449;
+            color: #e5e7eb;
+        }
+
+        :root[data-tema="escuro"] td {
+            background: #1f2937;
+            color: #e5e7eb;
+            border-color: #374151;
+        }
+
+        /* Mensagem de nenhum produto */
+        :root[data-tema="escuro"] .vazio {
+            color: #a1aab8;
+        }
+
+        /* Botão de cadastro */
+        :root[data-tema="escuro"] .salvar {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+
+        :root[data-tema="escuro"] .salvar:hover {
+            background: #2563eb;
+        }
+
     </style>
 </head>
 

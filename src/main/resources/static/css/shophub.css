@@ -1,3 +1,4 @@
+
 /* ShopHub: identidade visual compartilhada (baseada no visual da home do Lucas) */
 :root {
   --sh-azul: #2563eb;
@@ -8,69 +9,414 @@
   --sh-suave: #5b6472;
   --sh-borda: #d9dee7;
   --sh-erro: #b42318;
+
   /* cores de links do Bootstrap, na paleta ShopHub */
   --bs-link-color: #2563eb;
   --bs-link-color-rgb: 37, 99, 235;
   --bs-link-hover-color: #1d4ed8;
   --bs-link-hover-color-rgb: 29, 78, 216;
 }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Arial, sans-serif; background-color: var(--sh-fundo); color: var(--sh-texto); }
-.sh-pagina { min-height: 100vh; display: flex; flex-direction: column; }
-.sh-pagina > main { flex: 1 0 auto; }
-:focus-visible { outline: 3px solid #1e3a8a; outline-offset: 2px; }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--sh-fundo);
+  color: var(--sh-texto);
+}
+
+.sh-pagina {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-pagina > main {
+  flex: 1 0 auto;
+}
+
+:focus-visible {
+  outline: 3px solid #1e3a8a;
+  outline-offset: 2px;
+}
 
 /* acessibilidade */
-.sh-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.sh-skip { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 8px 12px; border-radius: 6px; background: #ffffff; color: var(--sh-azul-escuro); }
-.sh-skip:focus { left: 8px; }
+.sh-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.sh-skip {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--sh-azul-escuro);
+}
+
+.sh-skip:focus {
+  left: 8px;
+}
 
 /* cabeçalho (menu único) */
-.sh-header { background-color: #ffffff; box-shadow: 0 2px 8px #00000012; }
-.sh-nav { min-height: 75px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.sh-logo { color: var(--sh-azul); font-size: 28px; font-weight: bold; text-decoration: none; }
-.sh-menu { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; }
-.sh-menu a { color: #333333; text-decoration: none; font-size: 15px; }
-.sh-menu a:hover { color: var(--sh-azul); }
-.sh-menu a.sh-botao { padding: 8px 16px; border-radius: 8px; background: var(--sh-azul); color: #ffffff; }
-.sh-menu a.sh-botao:hover { background: var(--sh-azul-escuro); color: #ffffff; }
-.sh-usuario { color: var(--sh-suave); font-size: 14px; }
-.sh-sair { padding: 8px 14px; border: 1px solid var(--sh-borda); border-radius: 8px; background: #ffffff; color: #333333; font-size: 14px; cursor: pointer; }
-.sh-sair:hover { background: var(--sh-azul-claro); color: var(--sh-azul-escuro); }
-.sh-badge { display: inline-block; min-width: 22px; padding: 1px 7px; margin-left: 4px; border-radius: 999px; background: var(--sh-azul); color: #ffffff; font-size: 0.8rem; text-align: center; }
+.sh-header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px #00000012;
+}
+
+.sh-nav {
+  min-height: 75px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sh-logo {
+  color: var(--sh-azul);
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.sh-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.sh-menu a {
+  color: #333333;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.sh-menu a:hover {
+  color: var(--sh-azul);
+}
+
+.sh-menu a.sh-botao {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--sh-azul);
+  color: #ffffff;
+}
+
+.sh-menu a.sh-botao:hover {
+  background: var(--sh-azul-escuro);
+  color: #ffffff;
+}
+
+.sh-usuario {
+  color: var(--sh-suave);
+  font-size: 14px;
+}
+
+.sh-sair {
+  padding: 8px 14px;
+  border: 1px solid var(--sh-borda);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #333333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sh-sair:hover {
+  background: var(--sh-azul-claro);
+  color: var(--sh-azul-escuro);
+}
+
+/* Botão de alternância entre tema claro e escuro */
+.sh-tema {
+  padding: 8px 12px;
+  border: 1px solid var(--sh-borda);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sh-texto);
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+  box-shadow: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.sh-tema:hover {
+  background: transparent;
+  border-color: var(--sh-azul);
+  color: var(--sh-azul);
+  box-shadow: none;
+}
+
+.sh-badge {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 7px;
+  margin-left: 4px;
+  border-radius: 999px;
+  background: var(--sh-azul);
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-align: center;
+}
 
 /* rodapé */
-.sh-footer { margin-top: 40px; padding: 22px 5%; background: #ffffff; border-top: 1px solid var(--sh-borda); color: var(--sh-suave); font-size: 14px; }
-.sh-footer p { margin: 0; }
+.sh-footer {
+  margin-top: 40px;
+  padding: 22px 5%;
+  background: #ffffff;
+  border-top: 1px solid var(--sh-borda);
+  color: var(--sh-suave);
+  font-size: 14px;
+}
+
+.sh-footer p {
+  margin: 0;
+}
 
 /* telas de administração do Lucas (conteúdo dentro do <main>) */
-.sh-conteudo-admin { padding: 30px; }
+.sh-conteudo-admin {
+  padding: 30px;
+}
 
 @media (max-width: 700px) {
-  .sh-nav { padding: 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
-  .sh-menu { gap: 10px 16px; }
-  .sh-conteudo-admin { padding: 20px; }
+  .sh-nav {
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sh-menu {
+    gap: 10px 16px;
+  }
+
+  .sh-conteudo-admin {
+    padding: 20px;
+  }
 }
 
 /* páginas feitas com Bootstrap (login, cadastro, tabelas, carrinho, pagamento...) */
-.sh-pagina main.container { padding-top: 28px; padding-bottom: 28px; }
-.sh-centro { display: flex; justify-content: center; align-items: flex-start; padding: 32px 16px; }
-.sh-card-form { width: 100%; max-width: 440px; }
-.sh-card-largo { max-width: 650px; }
-.card { border: none; border-radius: 10px; box-shadow: 0 2px 8px #0000000a; }
-.sh-card-form.card { border-radius: 12px; box-shadow: 0 2px 12px #0000001a; }
-.form-control, .form-select { border: 1px solid var(--sh-borda); border-radius: 8px; padding: 10px 12px; }
-.btn { border-radius: 8px; }
-.btn-primary { background-color: var(--sh-azul); border-color: var(--sh-azul); }
-.btn-primary:hover, .btn-primary:focus { background-color: var(--sh-azul-escuro); border-color: var(--sh-azul-escuro); }
-.btn-outline-primary { color: var(--sh-azul); border-color: var(--sh-azul); }
-.btn-outline-primary:hover { background-color: var(--sh-azul); border-color: var(--sh-azul); color: #ffffff; }
-.btn-danger { background-color: var(--sh-erro); border-color: var(--sh-erro); }
-.btn-outline-danger { color: var(--sh-erro); border-color: var(--sh-erro); }
-.btn-outline-danger:hover { background-color: var(--sh-erro); border-color: var(--sh-erro); color: #ffffff; }
-.text-muted, .text-body-secondary { color: var(--sh-suave) !important; }
-.text-danger, .campo-obrigatorio { color: var(--sh-erro) !important; }
-.text-bg-success { background-color: #146c43 !important; }
-.text-bg-danger { background-color: var(--sh-erro) !important; }
-.table { background: #ffffff; }
-h1, h2, h3 { color: var(--sh-texto); }
+.sh-pagina main.container {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.sh-centro {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 16px;
+}
+
+.sh-card-form {
+  width: 100%;
+  max-width: 440px;
+}
+
+.sh-card-largo {
+  max-width: 650px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0000000a;
+}
+
+.sh-card-form.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0000001a;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid var(--sh-borda);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background-color: var(--sh-azul);
+  border-color: var(--sh-azul);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--sh-azul-escuro);
+  border-color: var(--sh-azul-escuro);
+}
+
+.btn-outline-primary {
+  color: var(--sh-azul);
+  border-color: var(--sh-azul);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--sh-azul);
+  border-color: var(--sh-azul);
+  color: #ffffff;
+}
+
+.btn-danger {
+  background-color: var(--sh-erro);
+  border-color: var(--sh-erro);
+}
+
+.btn-outline-danger {
+  color: var(--sh-erro);
+  border-color: var(--sh-erro);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--sh-erro);
+  border-color: var(--sh-erro);
+  color: #ffffff;
+}
+
+.text-muted,
+.text-body-secondary {
+  color: var(--sh-suave) !important;
+}
+
+.text-danger,
+.campo-obrigatorio {
+  color: var(--sh-erro) !important;
+}
+
+.text-bg-success {
+  background-color: #146c43 !important;
+}
+
+.text-bg-danger {
+  background-color: var(--sh-erro) !important;
+}
+
+.table {
+  background: #ffffff;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--sh-texto);
+}
+
+/* ===== Tema escuro ===== */
+
+:root[data-tema="escuro"] {
+  color-scheme: dark;
+
+  --sh-azul: #60a5fa;
+  --sh-azul-escuro: #3b82f6;
+  --sh-azul-claro: #1e293b;
+  --sh-fundo: #121821;
+  --sh-texto: #e5e7eb;
+  --sh-suave: #a1aab8;
+  --sh-borda: #374151;
+
+  --bs-body-bg: #121821;
+  --bs-body-color: #e5e7eb;
+  --bs-secondary-color: #a1aab8;
+  --bs-tertiary-bg: #1f2937;
+  --bs-border-color: #374151;
+}
+
+/* Fundo e textos */
+:root[data-tema="escuro"] body {
+  background-color: var(--sh-fundo);
+  color: var(--sh-texto);
+}
+
+/* Cabeçalho e rodapé */
+:root[data-tema="escuro"] .sh-header,
+:root[data-tema="escuro"] .sh-footer {
+  background-color: #1f2937;
+  color: var(--sh-suave);
+}
+
+/* Links do menu */
+:root[data-tema="escuro"] .sh-menu a {
+  color: var(--sh-texto);
+}
+
+:root[data-tema="escuro"] .sh-menu a:hover {
+  color: var(--sh-azul);
+}
+
+/* Botão de sair */
+:root[data-tema="escuro"] .sh-sair {
+  background-color: #273449;
+  color: var(--sh-texto);
+  border-color: var(--sh-borda);
+}
+
+:root[data-tema="escuro"] .sh-sair:hover {
+  background-color: #37465c;
+}
+
+/* Botão de alternância de tema */
+:root[data-tema="escuro"] .sh-tema {
+  background: transparent;
+  color: var(--sh-texto);
+  border-color: var(--sh-borda);
+  box-shadow: none;
+}
+
+:root[data-tema="escuro"] .sh-tema:hover {
+  background: transparent;
+  border-color: var(--sh-azul);
+  color: var(--sh-azul);
+}
+
+/* Formulários e cartões */
+:root[data-tema="escuro"] .card,
+:root[data-tema="escuro"] .form-control,
+:root[data-tema="escuro"] .form-select {
+  background-color: #1f2937;
+  color: var(--sh-texto);
+  border-color: var(--sh-borda);
+}
+
+/* Tabelas */
+:root[data-tema="escuro"] .table {
+  --bs-table-bg: #1f2937;
+  --bs-table-color: #e5e7eb;
+  --bs-table-border-color: #374151;
+}
+
+:root[data-tema="escuro"] .table th,
+:root[data-tema="escuro"] .table td {
+  background-color: #1f2937;
+  color: var(--sh-texto);
+}
+
+/* Botões secundários */
+:root[data-tema="escuro"] .btn-outline-primary {
+  color: var(--sh-azul);
+  border-color: var(--sh-azul);
+}
+
+:root[data-tema="escuro"] .btn-outline-primary:hover {
+  background-color: var(--sh-azul);
+  color: #121821;
+}

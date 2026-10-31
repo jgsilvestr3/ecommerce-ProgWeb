@@ -246,6 +246,75 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+        
+        /* ===== Adaptação da página inicial ao tema escuro ===== */
+
+        :root[data-tema="escuro"] .barra-categorias,
+        :root[data-tema="escuro"] .produto,
+        :root[data-tema="escuro"] .sem-produtos {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            box-shadow: 0 2px 8px #00000030;
+        }
+
+        :root[data-tema="escuro"] .barra-categorias h2,
+        :root[data-tema="escuro"] .titulo-produtos,
+        :root[data-tema="escuro"] .produto h3 {
+            color: #e5e7eb;
+        }
+
+        :root[data-tema="escuro"] .categoria {
+            color: #d1d5db;
+        }
+
+        :root[data-tema="escuro"] .categoria:hover,
+        :root[data-tema="escuro"] .categoria.selecionada {
+            background-color: #273449;
+            color: #60a5fa;
+        }
+
+        :root[data-tema="escuro"] .area-pesquisa input {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            border-color: #374151;
+        }
+
+        :root[data-tema="escuro"] .area-pesquisa input::placeholder {
+            color: #9ca3af;
+        }
+
+        :root[data-tema="escuro"] .area-pesquisa button {
+            background-color: #3b82f6;
+            color: #ffffff;
+        }
+
+        :root[data-tema="escuro"] .area-pesquisa button:hover {
+            background-color: #2563eb;
+        }
+
+        :root[data-tema="escuro"] .imagem-produto {
+            background-color: #273449;
+        }
+
+        :root[data-tema="escuro"] .descricao,
+        :root[data-tema="escuro"] .estoque,
+        :root[data-tema="escuro"] .sem-produtos {
+            color: #a1aab8;
+        }
+
+        :root[data-tema="escuro"] .preco {
+            color: #60a5fa;
+        }
+
+        :root[data-tema="escuro"] .btn-add-carrinho {
+            background-color: #3b82f6;
+        }
+
+        :root[data-tema="escuro"] .btn-add-carrinho:hover {
+            background-color: #2563eb;
+        }
+
+
     </style>
 </head>
 
