@@ -151,9 +151,15 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
-            background-color: #f1f5f9;
+            background-color: #fff;
             border-radius: 8px;
             font-size: 48px;
+        }
+
+        .imagem-produto img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .produto h3 {
@@ -309,7 +315,14 @@
 
                 <article class="produto" th:each="produto : ${produtos}">
 
-                    <div class="imagem-produto" aria-hidden="true">🛍️</div>
+                    <div class="imagem-produto">
+                        <img th:if="${!#strings.isEmpty(produto.imagem)}"
+                             th:src="@{${produto.imagem}}"
+                             th:alt="${produto.nome}">
+                        <img th:if="${#strings.isEmpty(produto.imagem)}"
+                             th:src="@{/images/produtos/sem-imagem.svg}"
+                             th:alt="${produto.nome}">
+                    </div>
 
                     <h3 th:text="${produto.nome}">
                         Nome do produto

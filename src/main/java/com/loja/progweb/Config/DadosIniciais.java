@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.boot.CommandLineRunner;
@@ -55,6 +56,7 @@ public class DadosIniciais implements CommandLineRunner {
     @Override
     public void run(String... args) {
         Map<String, Produto> produtos = criarCatalogo();
+        atualizarImagensProdutos();
         boolean usuariosNovos = criarUsuarios();
 
         // Pedidos de exemplo só quando tudo é novo (eles baixam o estoque dos produtos)
@@ -67,6 +69,136 @@ public class DadosIniciais implements CommandLineRunner {
                 System.out.println(">>> Aviso: os pedidos de exemplo nao foram criados (" + e.getMessage() + ")");
             }
         }
+    }
+
+    private void atualizarImagensProdutos() {
+        for (Produto produto : produtoRepository.findAll()) {
+            String imagem = imagemDoProduto(produto.getNome());
+            if (imagem != null && imagemDeveSerAtualizada(produto, imagem)) {
+                produto.setImagem(imagem);
+                produtoRepository.save(produto);
+            }
+        }
+    }
+
+    private boolean imagemDeveSerAtualizada(Produto produto, String imagemEsperada) {
+        String imagemAtual = produto.getImagem();
+        if (imagemAtual == null || imagemAtual.isBlank()) {
+            return true;
+        }
+
+        String nomeNormalizado = produto.getNome().toLowerCase(Locale.ROOT);
+        boolean imagemDeCatalogoCorrigida = nomeNormalizado.contains("notebook")
+                || nomeNormalizado.contains("calça jeans")
+                || nomeNormalizado.contains("tênis casual")
+                || nomeNormalizado.contains("luminária de mesa");
+        return imagemDeCatalogoCorrigida
+                ? !imagemAtual.equals(imagemEsperada)
+                : false;
+    }
+
+    private String imagemDoProduto(String nome) {
+        String nomeNormalizado = nome.toLowerCase(Locale.ROOT);
+        if (nomeNormalizado.contains("notebook")) {
+            return "/images/produtos/notebook.webp";
+        }
+        if (nomeNormalizado.contains("smartphone")) {
+            return "/images/produtos/smartphone.webp";
+        }
+        if (nomeNormalizado.contains("fone bluetooth")) {
+            return "/images/produtos/fone.jpg";
+        }
+        if (nomeNormalizado.contains("smartwatch")) {
+            return "/images/produtos/relogio.webp";
+        }
+        if (nomeNormalizado.contains("caixa de som")) {
+            return "/images/produtos/caixa.avif";
+        }
+        if (nomeNormalizado.contains("teclado")) {
+            return "/images/produtos/teclado.jpg";
+        }
+        if (nomeNormalizado.contains("mouse")) {
+            return "/images/produtos/mouse.webp";
+        }
+        if (nomeNormalizado.contains("monitor")) {
+            return "/images/produtos/monitor.webp";
+        }
+        if (nomeNormalizado.contains("bola de futebol")) {
+            return "/images/produtos/bola.jpg";
+        }
+        if (nomeNormalizado.contains("tapete de yoga")) {
+            return "/images/produtos/yoga.jpg";
+        }
+        if (nomeNormalizado.contains("halteres")) {
+            return "/images/produtos/halter.jpg";
+        }
+        if (nomeNormalizado.contains("garrafa térmica")) {
+            return "/images/produtos/garrafa.jpg";
+        }
+        if (nomeNormalizado.contains("corda de pular")) {
+            return "/images/produtos/corda.jpg";
+        }
+        if (nomeNormalizado.contains("java para iniciantes")) {
+            return "/images/produtos/aprender_java.jpg";
+        }
+        if (nomeNormalizado.contains("banco de dados na prática")) {
+            return "/images/produtos/banco_de_dados.webp";
+        }
+        if (nomeNormalizado.contains("interfaces acessíveis")) {
+            return "/images/produtos/acessibilidade.jpg";
+        }
+        if (nomeNormalizado.contains("spring boot em ação")) {
+            return "/images/produtos/spring_boot.jpg";
+        }
+        if (nomeNormalizado.contains("hidratante corporal")) {
+            return "/images/produtos/hidratante.webp";
+        }
+        if (nomeNormalizado.contains("protetor solar")) {
+            return "/images/produtos/protetor.jpg";
+        }
+        if (nomeNormalizado.contains("shampoo reparador")) {
+            return "/images/produtos/shampoo.webp";
+        }
+        if (nomeNormalizado.contains("perfume floral")) {
+            return "/images/produtos/perfume.webp";
+        }
+        if (nomeNormalizado.contains("camiseta básica")) {
+            return "/images/produtos/camisa.jpg";
+        }
+        if (nomeNormalizado.contains("calça jeans")) {
+            return "/images/produtos/jeans1.jpg";
+        }
+        if (nomeNormalizado.contains("jaqueta corta-vento")) {
+            return "/images/produtos/cortavento.webp";
+        }
+        if (nomeNormalizado.contains("tênis casual")) {
+            return "/images/produtos/tenis1.jpg";
+        }
+        if (nomeNormalizado.contains("moletom com capuz")) {
+            return "/images/produtos/moletom.jpg";
+        }
+        if (nomeNormalizado.contains("meias")) {
+            return "/images/produtos/meia.jpg";
+        }
+        if (nomeNormalizado.contains("jogo de panelas")) {
+            return "/images/produtos/panela.jpg";
+        }
+        if (nomeNormalizado.contains("cafeteira elétrica")) {
+            return "/images/produtos/cafeteira.webp";
+        }
+        if (nomeNormalizado.contains("liquidificador")) {
+            return "/images/produtos/liquidificador.avif";
+        }
+        if (nomeNormalizado.contains("jogo de cama")) {
+            return "/images/produtos/jogo_de_cama.webp";
+        }
+        if (nomeNormalizado.contains("luminária de mesa")) {
+            return "/images/produtos/luminaria1.jpg";
+        }
+        if (nomeNormalizado.contains("organizador multiuso")) {
+            return "/images/produtos/organizador.jpg";
+        }
+        return null;
     }
 
     // ---------------------------------------------------------------- catálogo
