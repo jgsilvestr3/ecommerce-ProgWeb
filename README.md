@@ -127,6 +127,7 @@ São 14 testes unitários (validação de cartão, criptografia e pagamento simu
 | **Eduardo Ferro** | Base da aplicação com Thymeleaf: usuários, login por perfil, CRUD de produtos (versão inicial), menu e página de acesso negado. |
 | **Lucas Dantas** | Módulo de produtos e categorias: home com busca e filtro, painel de produtos com validação, gerenciamento de categorias. |
 | **João Gabriel** ([@jgsilvestr3](https://github.com/jgsilvestr3)) | Integração das partes, correções de segurança, carrinho por usuário, checkout com pagamento simulado, pedidos, criptografia do cartão, testes automatizados e visual ShopHub. |
+| **Caetano** | Imagens do catálogo (31 fotos), exibição na home com texto alternativo, campo de imagem no painel de produtos e testes dessa parte. |
 
 ## Limitações e próximos passos
 
