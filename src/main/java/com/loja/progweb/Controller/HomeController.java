@@ -1,7 +1,4 @@
-
 package com.loja.progweb.Controller;
-
-import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +27,7 @@ public class HomeController {
     @GetMapping
     public ModelAndView home(
             @RequestParam(required = false) Long categoriaId,
-            @RequestParam(required = false, defaultValue = "") String busca,
-            Principal principal) {
+            @RequestParam(required = false, defaultValue = "") String busca) {
 
         ModelAndView mv = new ModelAndView("home");
 
@@ -52,14 +48,6 @@ public class HomeController {
         mv.addObject("categorias", categoriaRepository.findAll());
         mv.addObject("busca", busca);
         mv.addObject("categoriaSelecionada", categoriaId);
-
-        // Informa ao HTML se existe um usuário autenticado
-        mv.addObject("usuarioLogado", principal != null);
-
-        // O login usa o e-mail como identificador
-        if (principal != null) {
-            mv.addObject("emailUsuario", principal.getName());
-        }
 
         return mv;
     }
