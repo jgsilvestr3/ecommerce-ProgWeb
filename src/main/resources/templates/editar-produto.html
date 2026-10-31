@@ -72,6 +72,16 @@
             background: #ffe0e0;
             color: #a00000;
         }
+
+        .imagem-preview {
+            display: block;
+            width: 100%;
+            max-height: 220px;
+            margin-top: 10px;
+            object-fit: contain;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
     </style>
 </head>
 
@@ -116,6 +126,23 @@
             <input type="number" id="estoque" name="estoque"
                    min="0" step="1"
                    th:value="${produto.estoque}" required>
+        </div>
+
+        <div class="campo">
+            <label for="imagem">Caminho da imagem</label>
+            <input type="text" id="imagem" name="imagem" maxlength="255"
+                   th:value="${produto.imagem}"
+                   placeholder="/images/produtos/notebook.jpg">
+            <small>Informe um novo caminho para alterar a imagem. Se deixar em branco, a imagem atual será mantida.</small>
+            <img class="imagem-preview"
+                 th:if="${#strings.isEmpty(produto.imagem)}"
+                 th:src="@{/images/produtos/sem-imagem.svg}"
+                 th:alt="${produto.nome}">
+            <img class="imagem-preview"
+                 th:unless="${#strings.isEmpty(produto.imagem)}"
+                 th:src="@{${produto.imagem}}"
+                 th:alt="${produto.nome}"
+                 onerror="this.onerror=null;this.src='/images/produtos/sem-imagem.svg'">
         </div>
 
         <div class="campo">

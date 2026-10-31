@@ -23,11 +23,11 @@ Destaques técnicos:
 
 ## Tecnologias
 
-Java 17 · Spring Boot 4.1.1 · Spring MVC · Thymeleaf · Spring Data JPA (Hibernate) · Spring Security · banco **H2 em arquivo** · Bootstrap 5 (incluído no projeto, funciona sem internet) · JavaScript · JUnit 5
+Java 25 · Spring Boot 4.1.1 · Spring MVC · Thymeleaf · Spring Data JPA (Hibernate) · Spring Security · banco **H2 em arquivo** · Bootstrap 5 (incluído no projeto, funciona sem internet) · JavaScript · JUnit 5
 
 ## Como executar
 
-**Pré-requisitos:** JDK 17 ou superior e Git. Na primeira execução é preciso de internet (o Maven baixa as dependências).
+**Pré-requisitos:** JDK 25 ou superior e Git. Na primeira execução é preciso de internet (o Maven baixa as dependências).
 
 ```bash
 git clone https://github.com/jgsilvestr3/ecommerce-ProgWeb.git

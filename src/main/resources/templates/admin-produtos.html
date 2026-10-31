@@ -109,6 +109,14 @@
             max-width: 650px;
             margin-bottom: 40px;
         }
+
+        .miniatura-produto {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -158,6 +166,13 @@
         </div>
 
         <div class="campo">
+            <label for="imagem">Caminho da imagem</label>
+            <input type="text" id="imagem" name="imagem" maxlength="255"
+                   placeholder="/images/produtos/notebook.jpg">
+            <small>Coloque a imagem em src/main/resources/static/images/produtos/ e informe o caminho iniciado por /images/produtos/.</small>
+        </div>
+
+        <div class="campo">
             <label for="categoriaId">Categoria</label>
             <select id="categoriaId" name="categoriaId">
                 <option value="">Sem categoria</option>
@@ -182,6 +197,7 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Imagem</th>
             <th>Preço</th>
             <th>Estoque</th>
             <th>Categoria</th>
@@ -193,6 +209,18 @@
         <tr th:each="produto : ${produtos}">
             <td th:text="${produto.id}">1</td>
             <td th:text="${produto.nome}">Camiseta Básica</td>
+
+            <td>
+                <img class="miniatura-produto"
+                     th:if="${#strings.isEmpty(produto.imagem)}"
+                     th:src="@{/images/produtos/sem-imagem.svg}"
+                     th:alt="${produto.nome}">
+                <img class="miniatura-produto"
+                     th:unless="${#strings.isEmpty(produto.imagem)}"
+                     th:src="@{${produto.imagem}}"
+                     th:alt="${produto.nome}"
+                     onerror="this.onerror=null;this.src='/images/produtos/sem-imagem.svg'">
+            </td>
 
             <td th:text="${produto.preco != null
                 ? 'R$ ' + #numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')
@@ -229,7 +257,7 @@
         </tr>
 
         <tr th:if="${#lists.isEmpty(produtos)}">
-            <td colspan="5" class="vazio">
+            <td colspan="7" class="vazio">
                 Nenhum produto cadastrado.
             </td>
         </tr>

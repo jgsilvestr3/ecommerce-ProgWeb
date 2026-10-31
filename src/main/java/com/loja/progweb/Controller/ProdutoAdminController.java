@@ -47,6 +47,7 @@ public class ProdutoAdminController {
             @RequestParam BigDecimal preco,
             @RequestParam Integer estoque,
             @RequestParam(required = false) Long categoriaId,
+            @RequestParam(required = false) String imagem,
             RedirectAttributes redirectAttributes) {
 
         nome = nome.trim();
@@ -72,6 +73,9 @@ public class ProdutoAdminController {
         produto.setDescricao(descricao);
         produto.setPreco(preco);
         produto.setEstoque(estoque);
+        if (imagem != null && !imagem.isBlank()) {
+            produto.setImagem(imagem.trim());
+        }
 
         if (categoriaId != null) {
             Categoria categoria = categoriaRepository.findById(categoriaId).orElse(null);
@@ -117,6 +121,7 @@ public class ProdutoAdminController {
             @RequestParam BigDecimal preco,
             @RequestParam Integer estoque,
             @RequestParam(required = false) Long categoriaId,
+            @RequestParam(required = false) String imagem,
             RedirectAttributes redirectAttributes) {
 
         Produto produto = produtoRepository.findById(id).orElse(null);
@@ -160,6 +165,9 @@ public class ProdutoAdminController {
         produto.setPreco(preco);
         produto.setEstoque(estoque);
         produto.setCategoria(categoria);
+        if (imagem != null && !imagem.isBlank()) {
+            produto.setImagem(imagem.trim());
+        }
 
         produtoRepository.save(produto);
 
