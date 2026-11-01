@@ -3,6 +3,7 @@ package com.loja.progweb.Controller;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -21,23 +22,22 @@ import com.loja.progweb.Servicce.UsuarioService;
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 
-@Controller 
+@Controller
 public class UsuarioController {
 
-
     private UsuarioService usuarioService;
+
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
-    // Cadatro público de cliente
+    // Cadastro público de cliente
     @GetMapping("/cadastro")
     public ModelAndView cadastrarCliente(){
         ModelAndView mv = new ModelAndView("cadastro-usuario");
 
         Usuario usuario = new Usuario();
         mv.addObject("usuario", usuario).addObject("modoAdmin", false);
-
 
         return mv;
     }
@@ -55,15 +55,14 @@ public class UsuarioController {
     @GetMapping("/usuarios")
     public ModelAndView listar(){
 
-        return new ModelAndView("lista-usuario").addObject( "usuarios", usuarioService.listar());
+        return new ModelAndView("lista-usuario").addObject("usuarios", usuarioService.listar());
 
     }
 
-    @GetMapping ("/usuario/editar/{id}")
+    @GetMapping("/usuario/editar/{id}")
     public ModelAndView editar(@PathVariable Long id){
 
-        Usuario us = new Usuario();
-        us = usuarioService.buscarPorId(id).orElseThrow();
+        Usuario us = usuarioService.buscarPorId(id).orElseThrow();
         return new ModelAndView("cadastro-usuario").addObject("usuario", us).addObject("modoAdmin", true);
 
     }
@@ -73,6 +72,7 @@ public class UsuarioController {
     public String excluir(@PathVariable Long id, Principal principal, RedirectAttributes ra){
         Usuario alvo = usuarioService.buscarPorId(id).orElseThrow();
 
+        // não pode excluir o próprio usuário
         if (alvo.getEmail().equals(principal.getName())) {
             ra.addFlashAttribute("erro", "Você não pode excluir a sua própria conta.");
             return "redirect:/usuarios";
@@ -88,15 +88,16 @@ public class UsuarioController {
 
     @PostMapping("/usuario/salvar")
     public String salvar(@Valid @ModelAttribute("usuario") Usuario usuario,
-                     BindingResult resultado, Model model) {
+                         BindingResult resultado, Model model) {
 
         validarSenha(usuario, resultado);
+        validarDuplicados(usuario, resultado);
         if (usuario.getTipoUsuario() == null) {
             resultado.rejectValue("tipoUsuario", "tipo.obrigatorio", "Selecione o tipo de usuário");
         }
 
         if (resultado.hasErrors()) {
-            model.addAttribute("modoAdmin", true); // era isso que faltava
+            model.addAttribute("modoAdmin", true);
             return "cadastro-usuario";
         }
 
@@ -106,28 +107,42 @@ public class UsuarioController {
             // editar não pode mudar a data em que a conta foi criada
             usuario.setDataCadastro(usuarioService.buscarPorId(usuario.getId()).orElseThrow().getDataCadastro());
         }
-        usuarioService.salvar(usuario);
+
+        try {
+            usuarioService.salvar(usuario);
+        } catch (DataIntegrityViolationException e) {
+            // rede de segurança: duas requisições ao mesmo tempo com o mesmo dado único
+            resultado.reject("dados.duplicados", "Já existe um usuário com este e-mail, CPF ou telefone");
+            model.addAttribute("modoAdmin", true);
+            return "cadastro-usuario";
+        }
         return "redirect:/usuarios";
     }
-    
-    @PostMapping ("/cliente/salvar")
-    public String salvarCliente(@Valid @ModelAttribute ("usuario") Usuario usuario, BindingResult resultado, Model model){
-        
+
+    @PostMapping("/cliente/salvar")
+    public String salvarCliente(@Valid @ModelAttribute("usuario") Usuario usuario,
+                                BindingResult resultado, Model model){
+
         usuario.setId(null);
 
-        usuario.setDataCadastro(
-        LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
-        );
+        usuario.setDataCadastro(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         usuario.setTipoUsuario(TipoUsuario.CLIENTE);
         usuario.setAtivo(true);
 
         validarSenha(usuario, resultado);
+        validarDuplicados(usuario, resultado);
         if (resultado.hasErrors()) {
             model.addAttribute("modoAdmin", false);
             return "cadastro-usuario";
         }
 
-        usuarioService.salvar(usuario);
+        try {
+            usuarioService.salvar(usuario);
+        } catch (DataIntegrityViolationException e) {
+            resultado.reject("dados.duplicados", "Já existe um usuário com este e-mail, CPF ou telefone");
+            model.addAttribute("modoAdmin", false);
+            return "cadastro-usuario";
+        }
         return "redirect:/login?cadastrado";
     }
 
@@ -141,5 +156,38 @@ public class UsuarioController {
         }
     }
 
+    // Verifica e-mail, CPF e telefone, um de cada vez
+    private void validarDuplicados(Usuario usuario, BindingResult resultado) {
+
+        if (deveVerificar("email", usuario.getEmail(), resultado)) {
+            checarDuplicado("email", usuarioService.buscarPorEmail(usuario.getEmail()),
+                    usuario, resultado, "Usuário já cadastrado com esse e-mail");
+        }
+
+        if (deveVerificar("cpf", usuario.getCpf(), resultado)) {
+            checarDuplicado("cpf", usuarioService.buscarPorCpf(usuario.getCpf()),
+                    usuario, resultado, "Usuário já cadastrado com esse CPF");
+        }
+
+        if (deveVerificar("telefone", usuario.getTelefone(), resultado)) {
+            checarDuplicado("telefone", usuarioService.buscarPorTelefone(usuario.getTelefone()),
+                    usuario, resultado, "Usuário já cadastrado com esse telefone");
+        }
+    }
+
+    // Só vale a pena consultar o banco se o campo tem valor e não tem outro erro
+    private boolean deveVerificar(String campo, String valor, BindingResult resultado) {
+        return valor != null && !valor.isBlank() && !resultado.hasFieldErrors(campo);
+    }
+
+    // Achou alguém com esse valor? Só é duplicado se for OUTRA pessoa
+    private void checarDuplicado(String campo, Optional<Usuario> existente,
+                                 Usuario usuario, BindingResult resultado, String mensagem) {
+        existente.ifPresent(encontrado -> {
+            if (!encontrado.getId().equals(usuario.getId())) {
+                resultado.rejectValue(campo, campo + ".duplicado", mensagem);
+            }
+        });
+    }
 
 }
