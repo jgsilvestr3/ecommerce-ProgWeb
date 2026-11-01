@@ -9,6 +9,8 @@ import com.loja.progweb.Model.Usuario;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
     Optional<Usuario> findByEmail(String email);
+    Optional<Usuario> findByCpf(String cpf);
+    Optional<Usuario> findByTelefone(String telefone);
 
 
     

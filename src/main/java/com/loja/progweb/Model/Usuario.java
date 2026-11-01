@@ -1,5 +1,6 @@
 package com.loja.progweb.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 @Entity 
 public class Usuario{
@@ -20,13 +20,16 @@ public class Usuario{
     private String nome;
 
     @NotEmpty(message = "CPF é obrigatório: ")
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    @NotEmpty(message = "E-mail é obrigatório: ") 
+    @NotEmpty(message = "E-mail é obrigatório")
     @Email(message = "O e-mail informado é inválido.")
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotEmpty(message = "Telefone é obrigatório: ")
+    @Column(nullable = false, unique = true)
     private String telefone;
     
     private boolean ativo;
