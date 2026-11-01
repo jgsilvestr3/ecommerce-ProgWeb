@@ -45,6 +45,15 @@ public class UsuarioService implements UserDetailsService{
     public Optional<Usuario> buscarPorId(Long id){
         return usuarioRepository.findById(id);
     }
+    public Optional<Usuario> buscarPorEmail(String email){
+        return usuarioRepository.findByEmail(email);
+    }
+    public Optional<Usuario> buscarPorCpf(String cpf){
+        return usuarioRepository.findByCpf(cpf);
+    }
+    public Optional<Usuario> buscarPorTelefone(String telefone){
+        return usuarioRepository.findByTelefone(telefone);
+    }
 
     public void deletarPorId(Long id){
         usuarioRepository.deleteById(id);
