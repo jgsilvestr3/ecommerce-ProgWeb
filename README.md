@@ -23,11 +23,11 @@ Destaques técnicos:
 
 ## Tecnologias
 
-Java 25 · Spring Boot 4.1.1 · Spring MVC · Thymeleaf · Spring Data JPA (Hibernate) · Spring Security · banco **H2 em arquivo** · Bootstrap 5 (incluído no projeto, funciona sem internet) · JavaScript · JUnit 5
+Java 17 · Spring Boot 4.1.1 · Spring MVC · Thymeleaf · Spring Data JPA (Hibernate) · Spring Security · banco **H2 em arquivo** · Bootstrap 5 (incluído no projeto, funciona sem internet) · JavaScript · JUnit 5
 
 ## Como executar
 
-**Pré-requisitos:** JDK 25 ou superior e Git. Na primeira execução é preciso de internet (o Maven baixa as dependências).
+**Pré-requisitos:** JDK 17 ou superior e Git. Na primeira execução é preciso de internet (o Maven baixa as dependências).
 
 ```bash
 git clone https://github.com/jgsilvestr3/ecommerce-ProgWeb.git
@@ -118,7 +118,7 @@ H2 em **modo arquivo** (`./data/loja`), então os dados continuam salvos depois 
 .\mvnw test
 ```
 
-São 14 testes unitários (validação de cartão, criptografia e pagamento simulado) e um teste que sobe o sistema inteiro. Os testes usam um banco em memória, então podem rodar mesmo com a aplicação aberta.
+São 23 testes: validação de cartão, criptografia, pagamento simulado, controller de produtos e telas com imagens.
 
 ## Equipe e contribuições
 
