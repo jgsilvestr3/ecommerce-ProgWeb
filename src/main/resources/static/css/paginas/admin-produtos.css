@@ -1,0 +1,198 @@
+.sh-admin-produtos__painel {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px;
+    background: var(--sh-superficie);
+    color: var(--sh-texto);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    box-shadow: var(--sh-sombra);
+}
+
+.sh-admin-produtos__painel h1,
+.sh-admin-produtos__painel h2 {
+    color: var(--sh-texto);
+}
+
+.sh-admin-produtos__painel h1 {
+    margin-bottom: 25px;
+}
+
+.sh-admin-produtos__painel h2 {
+    margin: 25px 0 15px;
+}
+
+.sh-admin-produtos__voltar {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--sh-azul);
+    text-decoration: none;
+}
+
+.sh-admin-produtos__voltar:hover {
+    text-decoration: underline;
+}
+
+.sh-admin-produtos__formulario {
+    max-width: 650px;
+    margin-bottom: 40px;
+}
+
+.sh-admin-produtos__campo {
+    margin-bottom: 15px;
+}
+
+.sh-admin-produtos__campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: var(--sh-texto);
+}
+
+.sh-admin-produtos__campo input,
+.sh-admin-produtos__campo textarea,
+.sh-admin-produtos__campo select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 5px;
+}
+
+.sh-admin-produtos__campo textarea {
+    resize: vertical;
+}
+
+.sh-admin-produtos__campo small {
+    display: block;
+    margin-top: 6px;
+    color: var(--sh-texto-secundario);
+}
+
+.sh-admin-produtos__campo input:focus,
+.sh-admin-produtos__campo textarea:focus,
+.sh-admin-produtos__campo select:focus {
+    outline: none;
+    border-color: var(--sh-azul);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sh-azul) 20%, transparent);
+}
+
+.sh-admin-produtos__salvar {
+    padding: 11px 18px;
+    color: #fff;
+    background: var(--sh-azul-escuro);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sh-admin-produtos__salvar:hover {
+    background: var(--sh-azul);
+}
+
+.sh-admin-produtos__mensagem {
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid var(--sh-borda);
+    border-radius: 5px;
+}
+
+.sh-admin-produtos__sucesso {
+    color: var(--sh-texto);
+    background: var(--sh-superficie-secundaria);
+    border-left: 4px solid #198754;
+}
+
+.sh-admin-produtos__erro {
+    color: var(--sh-erro);
+    background: var(--sh-superficie-secundaria);
+    border-left: 4px solid var(--sh-erro);
+}
+
+.sh-admin-produtos__tabela-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.sh-admin-produtos__tabela {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+}
+
+.sh-admin-produtos__tabela th,
+.sh-admin-produtos__tabela td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--sh-borda);
+}
+
+.sh-admin-produtos__tabela th {
+    color: var(--sh-texto);
+    background: var(--sh-superficie-secundaria);
+}
+
+.sh-admin-produtos__tabela tbody tr:hover {
+    background: var(--sh-superficie-secundaria);
+}
+
+.sh-admin-produtos__miniatura {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    background: var(--sh-superficie-secundaria);
+    border: 1px solid var(--sh-borda);
+    border-radius: 6px;
+}
+
+.sh-admin-produtos__acoes {
+    white-space: nowrap;
+}
+
+.sh-admin-produtos__acoes a {
+    color: var(--sh-azul);
+    text-decoration: none;
+}
+
+.sh-admin-produtos__acoes a:hover {
+    text-decoration: underline;
+}
+
+.sh-admin-produtos__form-excluir {
+    display: inline;
+}
+
+.sh-admin-produtos__excluir {
+    padding: 6px 10px;
+    margin-left: 8px;
+    color: #fff;
+    background: #c62828;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sh-admin-produtos__excluir:hover {
+    background: #a51f1f;
+}
+
+.sh-admin-produtos__vazio {
+    padding: 20px !important;
+    text-align: center !important;
+    color: var(--sh-texto-secundario);
+}
+
+/* Responsividade */
+@media (max-width: 700px) {
+    .sh-admin-produtos__painel {
+        padding: 15px;
+    }
+
+    .sh-admin-produtos__tabela {
+        min-width: 750px;
+    }
+}

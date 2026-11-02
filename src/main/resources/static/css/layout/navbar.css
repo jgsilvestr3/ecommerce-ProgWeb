@@ -1,0 +1,104 @@
+.sh-header {
+    background-color: var(--sh-superficie);
+    box-shadow: var(--sh-sombra);
+}
+
+.sh-nav {
+    min-height: 75px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.sh-logo {
+    color: var(--sh-azul);
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sh-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+
+.sh-menu a {
+    color: var(--sh-texto);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.sh-menu a:hover {
+    color: var(--sh-azul);
+}
+
+.sh-menu a.sh-botao {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--sh-azul);
+    color: #ffffff;
+}
+
+.sh-menu a.sh-botao:hover {
+    background: var(--sh-azul-escuro);
+    color: #ffffff;
+}
+
+.sh-usuario {
+    color: var(--sh-texto-secundario);
+    font-size: 14px;
+}
+
+.sh-sair,
+.sh-tema {
+    padding: 8px 14px;
+    border: 1px solid var(--sh-borda);
+    border-radius: 8px;
+    background: var(--sh-superficie);
+    color: var(--sh-texto);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sh-sair:hover,
+.sh-tema:hover {
+    background: var(--sh-superficie-secundaria);
+    border-color: var(--sh-azul);
+}
+
+.sh-tema {
+    white-space: nowrap;
+}
+
+.sh-badge {
+    display: inline-block;
+    min-width: 22px;
+    padding: 1px 7px;
+    margin-left: 4px;
+    border-radius: 999px;
+    background: var(--sh-azul);
+    color: #ffffff;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Responsividade da navegação */
+@media (max-width: 700px) {
+    .sh-nav {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .sh-menu {
+        gap: 10px 16px;
+    }
+}

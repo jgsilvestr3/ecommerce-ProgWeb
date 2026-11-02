@@ -1,0 +1,211 @@
+.conteudo {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 30px 5%;
+}
+
+/* Categorias à esquerda */
+.barra-categorias {
+    width: 230px;
+    min-width: 230px;
+    padding: 22px;
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+}
+
+.barra-categorias h2 {
+    margin-top: 0;
+    color: var(--sh-texto);
+    font-size: 19px;
+}
+
+.categoria {
+    display: block;
+    padding: 12px 10px;
+    margin-top: 5px;
+    color: var(--sh-texto);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.categoria:hover,
+.categoria.selecionada {
+    background-color: var(--sh-azul-claro);
+    color: var(--sh-azul);
+}
+
+/* Área principal dos produtos */
+.area-produtos {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Pesquisa */
+.area-pesquisa {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.area-pesquisa input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    color: var(--sh-texto);
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.area-pesquisa input::placeholder {
+    color: var(--sh-texto-secundario);
+}
+
+.area-pesquisa button {
+    padding: 0 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--sh-azul-escuro);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.area-pesquisa button:hover {
+    background-color: var(--sh-azul);
+}
+
+/* Título */
+.titulo-produtos {
+    margin: 0 0 20px;
+    color: var(--sh-texto);
+    font-size: 23px;
+}
+
+/* Grade de produtos */
+.grade-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+/* Cartões */
+.produto {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    box-shadow: var(--sh-sombra);
+}
+
+/* Imagens */
+.imagem-produto {
+    height: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: var(--sh-superficie-secundaria);
+    border-radius: 8px;
+    font-size: 48px;
+}
+
+.imagem-produto img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Nome do produto */
+.produto h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 48px;
+    margin: 0 0 10px;
+    color: var(--sh-texto);
+    font-size: 17px;
+    line-height: 24px;
+}
+
+/* Descrição */
+.descricao {
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 36px;
+    color: var(--sh-texto-secundario);
+    font-size: 14px;
+}
+
+/* Preço */
+.preco {
+    margin: 15px 0 8px;
+    color: var(--sh-azul);
+    font-size: 21px;
+    font-weight: bold;
+}
+
+/* Estoque */
+.estoque {
+    color: var(--sh-texto-secundario);
+    font-size: 13px;
+}
+
+/* Botão adicionar ao carrinho */
+.btn-add-carrinho {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--sh-azul-escuro);
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-add-carrinho:hover {
+    background-color: var(--sh-azul);
+}
+
+.btn-add-carrinho:disabled {
+    background-color: #6b7280;
+    cursor: not-allowed;
+}
+
+/* Nenhum produto encontrado */
+.sem-produtos {
+    padding: 30px;
+    background-color: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    color: var(--sh-texto-secundario);
+}
+
+/* Responsividade da página inicial */
+@media (max-width: 700px) {
+    .conteudo {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .barra-categorias {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .area-pesquisa button {
+        padding: 0 14px;
+    }
+}

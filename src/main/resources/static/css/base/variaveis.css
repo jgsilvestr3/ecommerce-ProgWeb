@@ -1,0 +1,51 @@
+/* TEMA CLARO - PADRÃO */
+:root {
+    color-scheme: light;
+
+    --sh-azul: #2563eb;
+    --sh-azul-escuro: #1d4ed8;
+    --sh-azul-claro: #eff6ff;
+
+    --sh-fundo: #f5f6f8;
+    --sh-superficie: #ffffff;
+    --sh-superficie-secundaria: #f8fafc;
+
+    --sh-texto: #222222;
+    --sh-texto-secundario: #5b6472;
+
+    --sh-borda: #d9dee7;
+    --sh-erro: #b42318;
+
+    --sh-sombra: 0 2px 8px #00000012;
+
+    --bs-link-color: #2563eb;
+    --bs-link-color-rgb: 37, 99, 235;
+    --bs-link-hover-color: #1d4ed8;
+    --bs-link-hover-color-rgb: 29, 78, 216;
+}
+
+/* TEMA ESCURO */
+:root[data-tema="escuro"] {
+    color-scheme: dark;
+
+    --sh-azul: #60a5fa;
+    --sh-azul-escuro: #3b82f6;
+    --sh-azul-claro: #1e3a5f;
+
+    --sh-fundo: #121826;
+    --sh-superficie: #1e293b;
+    --sh-superficie-secundaria: #263449;
+
+    --sh-texto: #e5e7eb;
+    --sh-texto-secundario: #aab5c5;
+
+    --sh-borda: #3b485c;
+    --sh-erro: #f87171;
+
+    --sh-sombra: 0 2px 10px #00000040;
+
+    --bs-link-color: #93c5fd;
+    --bs-link-color-rgb: 147, 197, 253;
+    --bs-link-hover-color: #bfdbfe;
+    --bs-link-hover-color-rgb: 191, 219, 254;
+}
