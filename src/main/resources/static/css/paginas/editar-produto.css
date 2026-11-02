@@ -1,0 +1,107 @@
+.sh-editar-produto__painel {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 25px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 10px;
+    box-shadow: var(--sh-sombra);
+}
+
+.sh-editar-produto__painel h1 {
+    margin-bottom: 25px;
+    color: var(--sh-texto);
+}
+
+.sh-editar-produto__voltar {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--sh-azul);
+    text-decoration: none;
+}
+
+.sh-editar-produto__voltar:hover {
+    text-decoration: underline;
+}
+
+.sh-editar-produto__campo {
+    margin-bottom: 15px;
+}
+
+.sh-editar-produto__campo label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--sh-texto);
+    font-weight: bold;
+}
+
+.sh-editar-produto__campo input,
+.sh-editar-produto__campo textarea,
+.sh-editar-produto__campo select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    color: var(--sh-texto);
+    background: var(--sh-superficie);
+    border: 1px solid var(--sh-borda);
+    border-radius: 5px;
+}
+
+.sh-editar-produto__campo textarea {
+    resize: vertical;
+}
+
+.sh-editar-produto__campo input:focus,
+.sh-editar-produto__campo textarea:focus,
+.sh-editar-produto__campo select:focus {
+    outline: none;
+    border-color: var(--sh-azul);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sh-azul) 20%, transparent);
+}
+
+.sh-editar-produto__campo small {
+    display: block;
+    margin-top: 6px;
+    color: var(--sh-texto-secundario);
+}
+
+.sh-editar-produto__imagem-preview {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    margin-top: 10px;
+    object-fit: contain;
+    background: var(--sh-superficie-secundaria);
+    border: 1px solid var(--sh-borda);
+    border-radius: 8px;
+}
+
+.sh-editar-produto__salvar {
+    padding: 11px 18px;
+    color: #fff;
+    background: var(--sh-azul-escuro);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sh-editar-produto__salvar:hover {
+    background: var(--sh-azul);
+}
+
+.sh-editar-produto__erro {
+    padding: 12px;
+    margin-bottom: 15px;
+    color: var(--sh-erro);
+    background: var(--sh-superficie-secundaria);
+    border: 1px solid var(--sh-erro);
+    border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .sh-editar-produto__painel {
+        padding: 15px;
+    }
+}

@@ -7,7 +7,7 @@
     <title>Menu</title>
 </head>
 <body>
-    <!-- Menu único do ShopHub: aparece em todas as telas e muda conforme o perfil de quem está logado -->
+    <!-- Menu único do ShopHub -->
     <header th:fragment="navbar" class="sh-header">
         <a class="sh-skip" href="#conteudo">Pular para o conteúdo</a>
 
@@ -15,7 +15,9 @@
             <a class="sh-logo" th:href="@{/}">ShopHub</a>
 
             <ul class="sh-menu">
-                <li><a th:href="@{/}">Início</a></li>
+                <li>
+                    <a th:href="@{/}">Início</a>
+                </li>
 
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/meus-pedidos}">Meus pedidos</a>
@@ -41,6 +43,18 @@
                     </a>
                 </li>
 
+                <!-- Alternância entre tema claro e escuro -->
+                <li>
+                    <button
+                        type="button"
+                        id="btn-tema"
+                        class="sh-tema"
+                        aria-label="Ativar tema escuro"
+                        aria-pressed="false">
+                        🌙 Tema escuro
+                    </button>
+                </li>
+
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/login}">Entrar</a>
                 </li>
@@ -61,7 +75,9 @@
                 </li>
             </ul>
         </nav>
-    </header>
 
+        <!-- Carrega o JavaScript responsável pela alternância do tema -->
+        <script th:src="@{/js/tema.js}" defer></script>
+    </header>
 </body>
 </html>
